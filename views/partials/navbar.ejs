@@ -1,0 +1,43 @@
+<div class="nav-bar">
+    <div class="nav-bar__container">
+        <a class="navbar__icon" href="/"><img src="/icons/InYourArea%2048%20fav.png" class="navbar__icon"></a>
+
+        <a class="nav-bar__title" href="/">In Your Area</a>
+
+        <div class="nav-bar__title  dropdown">
+            <button class="dropbtn">Maps 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="worldLandmarks">World Landmarks</a>
+                <a href="#">Top Beaches</a>
+                <a href="#">Other</a>
+            </div>
+        </div>
+
+        <a class="nav-bar__title login" href="/welcome">Log In/Sign Up</a>        
+        <a href="/dashboard" class="nav-bar__title user">User Page</a>
+        <a href="/approval" class="nav-bar__title admin">Approval</a>
+        <a href="/logout" class="nav-bar__title user">Logout</a>
+
+
+    </div>
+</div>
+
+<script>
+    // code to display nav links to correct users
+    <% if (locals.user) { %>
+
+    if ('<%= user.username %>' == "admin") {
+        document.getElementsByClassName("admin")[0].style.display = "block";
+    }
+
+    document.getElementsByClassName("user")[0].style.display = "block";
+    document.getElementsByClassName("user")[1].style.display = "block";
+    document.getElementsByClassName("login")[0].style.display = "none";
+
+    console.log("user")
+    <% } else {%>
+    console.log("no user")
+    <% } %>
+</script>
