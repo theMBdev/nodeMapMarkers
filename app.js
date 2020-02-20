@@ -22,13 +22,19 @@ app.use(express.static(publicPath));
 
 // passwords
 // username and password imported
-var config = require('./config');
+// DEV MODE -
+//var config = require('./config');
+
+// Heroku MODE -
+var config = require('./configForHeroku');
+
 mongodbUser = config.mongodbUser;
 mongodbPassword = config.mongodbPassword;
 dbString = config.dbString;
 cloudinaryName = config.cloudinaryName;
 cloudinaryApiKey = config.cloudinaryApiKey;
 cloudinaryApiSecret = config.cloudinaryApiSecret;
+
 
 // marker import ?
 const mongoose = require("./database");
