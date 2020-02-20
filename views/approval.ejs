@@ -4,10 +4,6 @@
 
     <% include ./partials/head %>
 
-
-
-
-
         <!--     leaflet css -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
               integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -40,33 +36,6 @@
                     <img id="camera-button" src="./icons/photo-camera.png">
                 </button>
                 <div class="map-button-square" onclick="switchPanel()">Add Photo</div>
-
-                <!--
-<div class="filter-wrapper">
-<form>
-<input id="filterInput" type="text" name="focus" required class="filter-box" placeholder="Enter search term" />
-<button id="filterEmpty" class="close-icon" type="reset"></button>
-</form>
-</div>
--->
-
-                <div class="filter-wrapper">
-                    <form id="filterForm" name="filterForm">
-                        <input id="filterInput" type="text" name="focus" required class="filter-box" placeholder="Filter Markers" />
-                        <button id="filterEmpty" class="close-icon" type="reset"></button>
-                        <div class="filter-wrapper__message"></div>
-                        <div class="filterButtonContainer">   
-                            <p class="filterButtonContainer__text">Quick filters</p>                   
-                            <div class="filterButton">Lisa</div>
-                            <div class="filterButton">Jennie</div>
-                            <div class="filterButton">Rose</div>
-                            <div class="filterButton">Jisoo</div>
-
-                        </div>
-                    </form>
-                </div>
-
-
 
             </div>
 

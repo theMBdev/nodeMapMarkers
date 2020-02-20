@@ -119,7 +119,9 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 // page open to all
 app.get('/openpage', (req, res) => res.render('openpage'));
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
     console.log('listening on 3000')
 })
 
@@ -178,7 +180,7 @@ app.get('/worldLandmarks', function(req, res, next) {
 app.get('/approval', ensureAuthenticatedAdmin, function(req, res, next) {
 
     PointsModel.find({approved: "awaiting"}, function(err, points) {
-        res.render('approval', { title: 'Express', points: points });
+        res.render('approval', { title: 'Express', points: points, user: req.user });
     });
 });
 
