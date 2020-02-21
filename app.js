@@ -141,7 +141,7 @@ app.get('/', function(req,res) {
 
 
 let PointsModel = require('./models/points')
-let UserModel = require('./models/User')
+let UserModel = require('./models/user')
 
 app.get('/profile', function(req, res, next) {
 
