@@ -1,23 +1,41 @@
 <!-- A page were the user can see if there marker has been accepted -->
 <!DOCTYPE html>
 <html>
-    <% include ./partials/head %>
-    <% include ./partials/navbar %>
+    <body>
+        <% include ./partials/head %>
+        <% include ./partials/navbar %>
 
-    <h2 class="">User Dashboard</h2>
-    <p class="lead mb-3">Welcome <%= user.username %></p>
+        <h2 class="">User Dashboard</h2>
+        <p class="lead mb-3">Welcome <%= user.username %></p>
 
-    <h3>Markers Submited</h3>
-    <% points.forEach((event)=>{ %>
+        <h3>Markers Submited</h3>
 
-    <span>Name: </span><%= event.name %>
-    <br>
-    <span>Status: </span><%= event.approved %>
+        <table id="markerTable">
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+            <% points.forEach((event)=>{ %>
+            <tr>
+                <td><%= event.name %></td>
+                <td><span class="postStatus"><%= event.approved %></span></td>
+            </tr>
+            <% }) %>
+        </table>
 
-    <br><br>
+        <% include ./partials/footer %>
+    </body>
 
-    <% }) %>
+    <script>
+        // change "true" to "Approved"
+        var approvedPosts = document.getElementsByClassName("postStatus");
+        var arrayAP = [...approvedPosts];
 
-    <a href="/logout" class="btn btn-secondary">Logout</a>
-    <% include ./partials/footer %>
+        for (var i = 0; i < arrayAP.length; i++) {
+            if(arrayAP[i].innerHTML == "true") {
+                document.getElementsByClassName("postStatus")[i].innerHTML = "Approved";
+            }
+        }
+    </script>
+
 </html>

@@ -161,7 +161,7 @@ body {
         font-size: 16px;
         color: white;
         text-align: center;
-        padding: 14px 16px;
+        padding: 14px 6px;
         text-decoration: none;
     }
 
@@ -177,7 +177,7 @@ body {
         border: none;
         outline: none;
         color: white;
-        padding: 14px 16px;
+        padding: 14px 6px;
         background-color: inherit;
         font-family: inherit; /* Important for vertical align on mobile phones */
         margin: 0; /* Important for vertical align on mobile phones */
@@ -3424,15 +3424,34 @@ body {
 
 .navbar__icon {
     width: 30px;
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-left: 4px;
 }
 
-.btn-primary {
 
+
+
+#markerTable {   
+    border-collapse: collapse;
+    width: 100%;
 }
 
-/* for overwriting bootstrap colour */
-.btn-primary-BS { 
-    background-color: #1396FC;
+#markerTable td, #markerTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
+
+#markerTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#markerTable tr:hover {background-color: #ddd;}
+
+#markerTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #1396fc;
+    color: white;
+}
+
+
 
