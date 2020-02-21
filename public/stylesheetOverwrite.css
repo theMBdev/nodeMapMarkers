@@ -1,11 +1,19 @@
+/* buttons in welcome page / signup / login */
+a:hover {
+    color: white;
+    text-decoration: none;
+}
 
-.button-colour-ow {
+.button-blue-ow {
     background-color: #1396fc;
     border-color: #1396fc;
     height: 40px;
+    color: white;
+    line-height: 40px;
+    border-radius: 5px;
 }
 
-.button-colour-ow:hover {
+.button-blue-ow:hover {
     border-color: #0079d6;
     background-color: #0079d6;
 }

@@ -626,7 +626,8 @@ body {
     }
 
     .info-panel--upload__overlay__text{
-
+        text-align: center;
+        padding-top: 30px;
     }
 
     .info-panel--upload__overlay__text1{
@@ -665,7 +666,7 @@ body {
     }
 
     .info-panel__image--upload__holder {        
-        width: 655px;
+        width: 100%;
         margin-right: 24px;
     }
 
@@ -902,7 +903,8 @@ body {
     /* The expanding image container */
     .container {
         position: relative;
-        display: block;
+        display: block;      
+
     }
 
     #expandedImg {
@@ -1696,7 +1698,7 @@ body {
     }
 
     .info-panel__image--upload__holder {        
-        width: 655px;
+        width: 100%;
         margin-right: 24px;
     }
 
@@ -2371,7 +2373,6 @@ body {
         width: 100%;      
         margin: auto;
         background-color: #f44235;
-        border-radius: 20px;
         padding: 10px;
         /*        overflow: scroll;*/
     }
@@ -3211,8 +3212,10 @@ body {
     position: absolute;
     overflow-y: hidden;
     overflow-x: hidden;
+/*
     left: 10px;
     top: 10px;
+*/
     transition: 0.5s ease-in-out;
     /*    text-align: center;*/
     border-radius: 20px 20px 20px 20px;
@@ -3260,6 +3263,11 @@ body {
     background-color: #EDEFF2;
 }
 
+.form-input:focus{
+    outline:none;
+
+}
+
 .form-input--date {
     width: 100%;
 }
@@ -3285,7 +3293,7 @@ body {
 
 .form-submit {
     width: calc(100% + 40px);
-    background-color: #212932; /* Green */
+    background-color: #1396fc;
     border: none;
     color: white;
     padding: 20px 32px;
@@ -3452,6 +3460,5 @@ body {
     background-color: #1396fc;
     color: white;
 }
-
 
 

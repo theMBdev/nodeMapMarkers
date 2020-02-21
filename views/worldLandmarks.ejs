@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>        
-<!--        head -->
-    <% include ./partials/head %>
+        <!--        head -->
+        <% include ./partials/head %>
 
         <!--     leaflet css -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
@@ -58,8 +58,8 @@
             <div style="display: block;" class="panel1">
 
                 <div class="info-container">
-                    <div id="markerTitle" class="info-panel__title">Title location here</div>                
-                    <div id="markerDate" class="info-panel__date">03/07/19</div>
+                    <div id="markerTitle" class="info-panel__title">Select a marker to begin</div>                
+                    <div id="markerDate" class="info-panel__date"></div>
 
                     <div class="info-panel__tags" id="info-panel__tags">
 
@@ -69,8 +69,8 @@
                 <div class="info-panel__gallary-container">
                     <div class="main-container">
 
-                        <div class="container">                            
-                            <img id="expandedImg"  src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/isyvMy1YgRas/v0/1200x-1.jpg">
+                        <div class="container">                                 
+                            <img id="expandedImg"  src="/images/arrow.png">
                         </div>
 
                         <div class="gallery-container">
@@ -98,21 +98,22 @@
 
 
                 iconOut.onclick = function(){
-                    if (panel.style.height == "80%") {
-                        console.log("a");
+                    if (panel.style.height == "80%") {                        
                         panel.style.height = "20%";
                         iconOut.style.top = "calc(80% - 25px)";
 
                         OpenCloseIcon.classList.add("is-up");
                         OpenCloseIcon.classList.remove("is-down");
 
-                    } else {
-                        console.log("b");
+
+
+                    } else {                        
                         panel.style.height = "80%";
                         iconOut.style.top = "calc(20% - 25px)";
 
                         OpenCloseIcon.classList.remove("is-up");
                         OpenCloseIcon.classList.add("is-down");
+
                     }
                 };
 
@@ -381,6 +382,9 @@
                 document.getElementById("expandedImg").src = e.layer.feature.properties.image;
                 document.getElementById("markerDate").innerHTML = e.layer.feature.properties.date;
 
+                document.getElementById("expandedImg").style.transform = "rotate(0deg)";
+                document.getElementById("expandedImg").style.width = "100%";
+
                 console.log("DATE", e.layer.feature.properties.date);
 
 
@@ -436,6 +440,7 @@
 
                     document.getElementsByClassName("icon-out1")[0].style.display = "block";
                     document.getElementsByClassName("panel1")[0].style.height = "80%";
+                    document.getElementsByClassName("panel1--upload")[0].style.height = "80%";
                     document.getElementsByClassName("icon-out1")[0].style.top = "calc(20% - 25px)"; 
 
                 }
@@ -464,24 +469,70 @@
 
 
 
-            // switches between upload panel and display panel
+            // switches between upload panel and display panel desktop
             var uploadPanel = document.getElementsByClassName("panel1--upload");
             uploadPanel[0].style.display === "none";
 
             function switchPanel() {
 
+
+
+                // bellow is for desktop
                 <% if (locals.user) { %>
 
                 // shows overlay 
                 document.getElementById("overlay").style.display = "block";                
 
                 if (uploadPanel[0].style.display === "none") {
+
+                    var panel = document.getElementsByClassName("panel1")[0];
+                    var iconOut = document.getElementsByClassName("icon-out1")[0];
+                    var OpenCloseIcon = document.getElementById("toggle1");
+
+
+                    iconOut.onclick = function(){
+                        if (panel.style.height == "80%") {                        
+                            panel.style.height = "20%";
+                            iconOut.style.top = "calc(80% - 25px)";
+
+                            OpenCloseIcon.classList.add("is-up");
+                            OpenCloseIcon.classList.remove("is-down");
+
+                            uploadPanel[0].style.height = "20%";
+
+                        } else {                        
+                            panel.style.height = "80%";
+                            iconOut.style.top = "calc(20% - 25px)";
+
+                            OpenCloseIcon.classList.remove("is-up");
+                            OpenCloseIcon.classList.add("is-down");
+
+                            uploadPanel[0].style.height = "80%";
+                        }
+                    };
+
+                    document.getElementById("toggle1").onclick = function(){
+
+                    }
+
+
+
+
+
+
                     // make map clickable to add marker
                     map.on('click', addMarkerNew);
                     // fire a click as it was taken two clicks to activate add marker
                     map.fireEvent('click');
                     uploadPanel[0].style.display = "block";
+
+
+                    uploadPanel[0].style.bottom = "0px";
+                    uploadPanel[0].style.width = "100%";
+
+
                     console.log('oh')
+
                 } else {
                     uploadPanel[0].style.display = "none";
                     console.log('eh')
@@ -490,6 +541,10 @@
                     if (theMarker) { // check
                         map.removeLayer(theMarker); // remove
                     }
+
+
+
+
                 }
 
                 var displayPanel = document.getElementsByClassName("panel1");
@@ -522,17 +577,37 @@
                 console.log("no user")
                 <% } %>
 
+                // trigger to resize upload pannel if in desktop view
+                windowResize();
 
             }
 
             // desktop and mobile panel changes
-            function windowResize() {                
+            function windowResize() {     
+
+                var imageToRotate = document.getElementById("expandedImg");    
+
                 if (window.innerWidth >= 1024) {
                     console.log("DESKTOP TRIGGER")
 
                     // icon disply none
                     document.getElementsByClassName("icon-out1")[0].style.display = "none";
                     document.getElementsByClassName("panel1")[0].style.height = "90vh";
+                    document.getElementsByClassName("panel1--upload")[0].style.height = "90vh";
+
+                    document.getElementsByClassName("panel1--upload")[0].style.width = "57%";
+                    document.getElementsByClassName("panel1--upload")[0].style.top = "10px";
+
+
+
+                    // rotate arrow  
+                    if(imageToRotate.src == "http://localhost:3000/images/arrow.png") {
+                        imageToRotate.style.transform = "rotate(0deg)";
+                        imageToRotate.style.width = "100%";
+                    } else {
+                        imageToRotate.style.transform = "rotate(0deg)";
+                        imageToRotate.style.width = "100%";
+                    }
 
                 } else {
                     console.log("MOBILE/TAB TRIGGER")
@@ -541,9 +616,25 @@
                     document.getElementsByClassName("icon-out1")[0].style.display = "block"; 
 
                     document.getElementsByClassName("panel1")[0].style.height = "20%";
-                    document.getElementsByClassName("icon-out1")[0].style.top = "calc(80% - 25px)";                               
+                    document.getElementsByClassName("panel1--upload")[0].style.height = "20%";
+                    document.getElementsByClassName("icon-out1")[0].style.top = "calc(80% - 25px)";    
+
+                    document.getElementsByClassName("panel1--upload")[0].style.width = "100%";
+                    document.getElementsByClassName("panel1--upload")[0].style.top = "";
+                    document.getElementsByClassName("panel1--upload")[0].style.bottom = "0px";
+
                     OpenCloseIcon.classList.add("is-up");
                     OpenCloseIcon.classList.remove("is-down");
+
+                    // rotate arrow  
+                    if(imageToRotate.src == "http://localhost:3000/images/arrow.png") {
+                        imageToRotate.style.transform = "rotate(270deg)";
+                        imageToRotate.style.width = "50%";
+                    } else {
+                        imageToRotate.style.transform = "rotate(0deg)";
+                        imageToRotate.style.width = "100%";
+                    }
+
 
                 }
             }
