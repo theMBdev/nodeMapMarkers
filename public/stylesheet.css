@@ -1187,7 +1187,7 @@ body {
 
     .button-primary {
         border: none;
-        background-color: #208FDF;
+        background-color: #1396FC;
         border-radius: 5px;
         color: white;
     }
@@ -2221,7 +2221,7 @@ body {
 
     .button-primary {
         border: none;
-        background-color: #208FDF;
+        background-color: #1396FC;
         border-radius: 5px;
         color: white;
     }
@@ -3151,7 +3151,8 @@ body {
     .home-maps__title {        
         text-align: center;
         font-size: 28px;
-        margin: 20px;
+        margin-top: 20px;
+        margin-bottom: 5px;
     }
 
     .home-maps-flex-container {
@@ -3196,7 +3197,7 @@ body {
 
     .button-primary {
         border: none;
-        background-color: #208FDF;
+        background-color: #1396FC;
         border-radius: 5px;
         color: white;
     }
@@ -3212,10 +3213,10 @@ body {
     position: absolute;
     overflow-y: hidden;
     overflow-x: hidden;
-/*
+    /*
     left: 10px;
     top: 10px;
-*/
+    */
     transition: 0.5s ease-in-out;
     /*    text-align: center;*/
     border-radius: 20px 20px 20px 20px;
@@ -3461,4 +3462,230 @@ body {
     color: white;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*HOME PAGE jumbo*/
+.homepageHeader__imageContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 198px 198px 198px;
+    grid-gap: 2px;
+    grid-template-areas: 
+        "img1 img2 img3"
+        "img4 img5 img6"
+        "img7 img8 img9";
+
+    width: 100%;
+    max-width: 900px;
+    min-width: 300px;
+    height: 600px;
+}
+
+.homepageHeader__img1 {
+    grid-area: img1;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/171121153705-02-empire-state-building-restricted-super-169-min.jpg);
+}
+
+.homepageHeader__img2 {
+    grid-area: img2;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/190709-niagara-falls-min.jpg);
+}
+
+.homepageHeader__img3 {
+    grid-area: img3;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/steven-roe-bxUylPipWmM-unsplash-min.jpg);
+}
+
+.homepageHeader__img4 {
+    grid-area: img4;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/cait-ellis-Erld-XTqXv0-unsplash-min.jpg);
+}
+
+.homepageHeader__img5 {
+    grid-area: img5;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/luca-bravo-TaCk3NspYe0-unsplash-min.jpg);
+}
+
+.homepageHeader__img6 {
+    grid-area: img6;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/mathew-schwartz-gsllxmVO4HQ-unsplash-min.jpg);
+}
+
+.homepageHeader__img7 {
+    grid-area: img7;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/max-bender-FuxYvi-hcWQ-unsplash-min.jpg);
+}
+
+.homepageHeader__img8 {
+    grid-area: img8;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/picto_myGoogleBusiness_1-min.jpg);
+}
+
+.homepageHeader__img9 {
+    grid-area: img9;
+    background: gainsboro;
+    height: 100%;
+    background-size: cover; /* <-- background size */
+    background-position: center; /* <-- background position */
+    background-image: url(images/robin-noguier-sydwCr54rf0-unsplash-min.jpg);
+}
+
+.homepageHeader {
+    background-color: whitesmoke;
+    height: 600px;
+    display: flex;
+}
+
+.homepageHeader__textContainer {
+    max-width: 600px;
+    min-width: 600px;
+    height: 200px;
+    background-color: whitesmoke;   
+    margin: auto;
+    padding: 30px;    
+    font-size: 28px; 
+}
+
+.homepageHeader__button {
+    width: 110px;
+    height: 40px;
+    background-color: #1396FC;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1300px) {
+
+    .homepageHeader {
+        background-color: whitesmoke;
+        height: 400px;
+        display: flex;
+    }
+
+    .homepageHeader__textContainer {
+        max-width: 500px;
+        min-width: 400px;
+        height: 200px;
+        background-color: whitesmoke;   
+        margin: auto;
+        padding: 30px; 
+
+    }
+
+    .homepageHeader__imageContainer {    
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 131px 131px 131px;
+        grid-gap: 2px;
+        grid-template-areas: 
+            "img1 img2 img3"
+            "img4 img5 img6"
+            "img7 img8 img9";
+
+        width: 100%;
+        max-width: 700px;
+        min-width: 400px;
+        height: 400px;
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+
+    .homepageHeader {
+        background-color: whitesmoke;
+        height: 400px;
+        display: flex;
+        position: relative;
+    }
+
+    .homepageHeader__textContainer {
+        max-width: 500px;
+        min-width: 500px;
+        height: 200px;
+        background-color: rgba(256,256,256,90%);   
+        padding: 30px;     
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        top: 90px;
+    }
+
+    .homepageHeader__imageContainer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 131px 131px 131px;
+        grid-gap: 2px;
+        grid-template-areas: 
+            "img1 img2 img3"
+            "img4 img5 img6"
+            "img7 img8 img9";
+        width: 100%;
+        max-width: 900px;
+        min-width: 500px;
+        height: 400px;
+    }
+
+
+    .homepageHeader__button {
+           margin-left:50%;
+        transform:translateX(-50%);
+    }
+}
 

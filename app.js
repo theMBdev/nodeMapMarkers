@@ -14,6 +14,8 @@ require('./config/passport')(passport);
 app.use(express.urlencoded({ extended: true }));
 
 
+
+
 const path = require('path');
 const publicPath = path.join(__dirname, 'public');
 // to serve static files
@@ -177,25 +179,34 @@ app.get('/profile', function(req, res, next) {
 
 app.get('/worldLandmarks', function(req, res, next) {
 
+
     PointsModel.find({approved: "true"}, function(err, points) {
+
         res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
+
     });
 });
 
 // approval page
 app.get('/approval', ensureAuthenticatedAdmin, function(req, res, next) {
-
+    
     PointsModel.find({approved: "awaiting"}, function(err, points) {
         res.render('approval', { title: 'Express', points: points, user: req.user });
     });
 });
 
 app.post('/approval', (req, res, next) => {
-
+    
     PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "true" }).then(function() {
         res.redirect('/worldLandmarks')
     })
+})
 
+app.post('/reject', (req, res, next) => {
+    
+    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "Rejected" }).then(function() {
+        res.redirect('/worldLandmarks')
+    })
 })
 
 
@@ -230,6 +241,7 @@ app.post('/upload', ensureAuthenticated, (req, res, next) => {
             console.error(err)
         })
 
+        // if user is not admin but is a user (signed in)
     } else if (req.user) {        
 
         let newPoint = new PointsModel({
@@ -245,8 +257,13 @@ app.post('/upload', ensureAuthenticated, (req, res, next) => {
 
         newPoint.save()
             .then(doc => {
+            req.flash(
+                'success_msg',
+                'Post Success - Awaiting manual approval - can take up to 12 hours'
+            );
             console.log(doc)
             res.redirect('/worldLandmarks')
+
 
         }).catch(err => {
             console.error(err)

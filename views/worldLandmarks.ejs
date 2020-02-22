@@ -21,14 +21,20 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
+
+        <link  rel="stylesheet"
+              href="https://bootswatch.com/4/journal/bootstrap.min.css"
+              />
+
+
     </head>
 
     <body onresize="windowResize()">
 
         <% include ./partials/navbar %>
+        <% include ./partials/messages %>
 
         <div class="section">
-
             <div class="map-wrapper">
                 <div class="map" id="map" style="width:100%;"></div>
                 <button class="map-button" onclick="switchPanel()">
