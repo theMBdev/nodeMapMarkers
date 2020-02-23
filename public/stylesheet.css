@@ -1,12 +1,3 @@
-
-/* Put white background behind text - use for any text on the map
-text-shadow: -1px 1px 2px #fff,
-1px 1px 2px #fff,
-1px -1px 0 #fff,
--1px -1px 0 #fff;  
-*/
-
-
 * {
     padding: 0px;
     margin: 0px;    
@@ -3689,3 +3680,19 @@ body {
     }
 }
 
+
+.approveButton {
+    border: 0px;
+    width: 60px;
+    height: 30px;
+    background-color: darkseagreen;
+    border-radius: 5px;
+}
+
+.rejectButton {
+    border: 0px;
+    width: 60px;
+    height: 30px;
+    background-color: indianred;
+    border-radius: 5px;
+}

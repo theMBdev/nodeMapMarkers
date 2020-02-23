@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
 const path = require('path');
 const publicPath = path.join(__dirname, 'public');
 // to serve static files
