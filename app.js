@@ -10,8 +10,13 @@ const bcrypt = require('bcryptjs');
 // Passport Config
 require('./config/passport')(passport);
 
+
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
+
+
+// Routes
+const user = require('./routes/user.route');
 
 
 
@@ -103,11 +108,11 @@ app.use(function(req, res, next) {
 //// Routes
 //app.use('/base', require('./routes/index.js'));
 //app.use('/users', require('./routes/users.js'));
+app.use('/user', user);
 
 const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = require('./config/auth');
 
-// Welcome Page
-app.get('/welcome', forwardAuthenticated, (req, res) => res.render('welcome'));
+
 
 // Dashboard
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
@@ -279,107 +284,3 @@ app.post('/upload', ensureAuthenticated, (req, res, next) => {
 
 
 
-// ALL FROM routes.users
-// Login Page
-app.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
-
-// Register Page
-app.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
-
-// Register
-app.post('/register', (req, res) => {
-    const { username, email, password, password2 } = req.body;
-    let errors = [];
-
-    if (!username || !email || !password || !password2) {
-        errors.push({ msg: 'Please enter all fields' });
-    }
-
-    if (password != password2) {
-        errors.push({ msg: 'Passwords do not match' });
-    }
-
-    if (password.length < 6) {
-        errors.push({ msg: 'Password must be at least 6 characters' });
-    }
-
-    if (errors.length > 0) {
-        res.render('register', {
-            errors,
-            username,
-            email,
-            password,
-            password2
-        });
-    } else {
-
-        UserModel.findOne({ email: email }).then(user => {
-            if (user) {
-                errors.push({ msg: 'Email already exists' });
-                res.render('register', {
-                    errors,
-                    username,
-                    email,
-                    password,
-                    password2
-                });
-            } else {
-
-                UserModel.findOne({ username: username }).then(user => {
-                    if (user) {
-                        errors.push({ msg: 'Username already exists' });
-                        res.render('register', {
-                            errors,
-                            username,
-                            email,
-                            password,
-                            password2
-                        });
-                    } else {
-
-                        const newUser = new UserModel({
-                            username,
-                            email,
-                            password
-                        });
-
-                        bcrypt.genSalt(10, (err, salt) => {
-                            bcrypt.hash(newUser.password, salt, (err, hash) => {
-                                if (err) throw err;
-                                newUser.password = hash;
-                                // make name lowercase - TODO change to username when ready
-                                newUser.username = newUser.username.toLowerCase();
-                                newUser
-                                    .save()
-                                    .then(user => {
-                                    req.flash(
-                                        'success_msg',
-                                        'You are now registered and can log in'
-                                    );
-                                    res.redirect('/login');
-                                })
-                                    .catch(err => console.log(err));
-                            });
-                        });
-                    }
-                });
-            }
-        });
-    };
-});
-
-// Login 
-app.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/register',
-        failureFlash: true
-    })(req, res, next);
-});
-
-// Logout
-app.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/');
-});
