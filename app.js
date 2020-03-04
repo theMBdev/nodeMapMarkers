@@ -22,27 +22,13 @@ const UserModel = require('./models/user')
 const user = require('./routes/user.route');
 const approval = require('./routes/approval.route');
 
-const mongoose = require("./database");
+const mongoose = require("./config/database");
 const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = require('./config/auth');
 
 const path = require('path');
 const publicPath = path.join(__dirname, 'public');
 // to serve static files
 app.use(express.static(publicPath));
-
-// passwords
-// username and password imported
-// Heroku MODE -
-const config = require('./configForHeroku');
-
-// DEV MODE -
-//var config = require('./config/config');
-//mongodbUser = config.mongodbUser;
-//mongodbPassword = config.mongodbPassword;
-//dbString = config.dbString;
-//cloudinaryName = config.cloudinaryName;
-//cloudinaryApiKey = config.cloudinaryApiKey;
-//cloudinaryApiSecret = config.cloudinaryApiSecret;
 
 // MULTER
 const multer = require('multer')

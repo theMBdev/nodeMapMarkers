@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
-// passwords
-// username and password imported
-//var config = require('./config');
+
+// DEV
+// var config = require('./config');
+
+// Heroku
 var config = require('./configForHeroku');
 
 mongodbUser = config.mongodbUser;
@@ -12,7 +14,7 @@ cloudinaryName = config.cloudinaryName;
 cloudinaryApiKey = config.cloudinaryApiKey;
 cloudinaryApiSecret = config.cloudinaryApiSecret;
 
-const dbPath = 'mongodb://' + mongodbUser + ':' + mongodbPassword + '@ds147213.mlab.com:47213/node-map-markers';
+const dbPath = 'mongodb://' + mongodbUser + ':' + mongodbPassword + dbString;
 mongoose.connect(dbPath, {
     useNewUrlParser: true,
     useUnifiedTopology: true
