@@ -95,8 +95,3 @@ app.get('/worldLandmarks', function(req, res, next) {
         res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
     });
 });
-
-
-
-
-

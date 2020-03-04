@@ -1,11 +1,17 @@
 const mongoose = require("mongoose");
 
+// 0 for dev mode
+var mode = 1;
 
-// DEV
-// var config = require('./config');
+if (mode == 0) {
+    // DEV
+    var config = require('./config');
+} else {
+    // Heroku
+    var config = require('./configForHeroku');
+}
 
-// Heroku
-var config = require('./configForHeroku');
+
 
 mongodbUser = config.mongodbUser;
 mongodbPassword = config.mongodbPassword;

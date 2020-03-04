@@ -296,7 +296,6 @@
                         document.getElementById("latTextBox").value = position.lat;
                         document.getElementById("lngTextBox").value = position.lng;
 
-                        console.log("Log of value", document.getElementById("lngTextBox").value)
                     });
                 });
             }
@@ -324,7 +323,7 @@
                 var tags = [];
 
                 var tags = JSON.parse('<%- JSON.stringify(points[z].tags) %>');
-                                      console.log("tags")
+                                     
 
                 var markerImageArray = JSON.parse('<%- JSON.stringify(points[z].markerImageArray) %>');
                                                   // breaks if this is removed, todo with that above > '); thing
@@ -369,7 +368,7 @@
             // marker onclick function
             function onMarkerClick(e) {   
                 console.log("You clicked a marker")
-                console.log("Inside Markers", e.layer.feature.properties.name);    
+                  
                 document.getElementById("markerTitle").innerHTML = e.layer.feature.properties.name;
                 document.getElementById("expandedImg").src = e.layer.feature.properties.image;
                 document.getElementById("markerDate").innerHTML = e.layer.feature.properties.date;
@@ -523,11 +522,11 @@
                     uploadPanel[0].style.width = "100%";
 
 
-                    console.log('oh')
+                    
 
                 } else {
                     uploadPanel[0].style.display = "none";
-                    console.log('eh')
+                    
                     map.off('click')
                     // remove marker
                     if (theMarker) { // check
@@ -712,7 +711,6 @@
                     alert("You must write something!");
                 } else {                     
                     document.getElementById("myUL").appendChild(li);
-                    console.log("Input Val", inputValue);
                     data.push(inputValue);  
 
                     document.getElementById('tagsArrayHidden').value = data;

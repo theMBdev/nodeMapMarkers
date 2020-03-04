@@ -39,7 +39,6 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 
 // Register
 router.post('/register', (req, res) => {
-    console.log("REG")
     const { username, email, password, password2 } = req.body;
     let errors = [];
 
@@ -187,7 +186,6 @@ router.post('/upload', ensureAuthenticated, (req, res, next) => {
 
 // Login 
 router.post('/login', (req, res, next) => {
-    console.log("HERE")
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/user/register',
