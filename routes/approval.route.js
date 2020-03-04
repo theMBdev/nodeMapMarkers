@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const PointsModel = require('../models/points');
 const approval_controller = require('../controllers/approval.controller');
 const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = require('../config/auth');
 

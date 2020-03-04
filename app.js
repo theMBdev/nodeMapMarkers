@@ -8,12 +8,6 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
-// Passport Config
-require('./config/passport')(passport);
-
-// Express body parser
-app.use(express.urlencoded({ extended: true }));
-
 // Models
 const PointsModel = require('./models/points')
 const UserModel = require('./models/user')
@@ -59,11 +53,12 @@ app.use(
 );
 
 // Passport middleware
+// Passport Config
+require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(flash());
-
 // Global variables
 app.use(function(req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
@@ -84,6 +79,7 @@ app.listen(port, () => {
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
 
 
 app.get('/', function(req,res) {
