@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+// Module imports
 const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -10,41 +11,38 @@ const bcrypt = require('bcryptjs');
 // Passport Config
 require('./config/passport')(passport);
 
-
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
+// Models
+const PointsModel = require('./models/points')
+const UserModel = require('./models/user')
 
 // Routes
 const user = require('./routes/user.route');
+const approval = require('./routes/approval.route');
 
-
+const mongoose = require("./database");
+const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = require('./config/auth');
 
 const path = require('path');
 const publicPath = path.join(__dirname, 'public');
 // to serve static files
 app.use(express.static(publicPath));
-//app.use(express.static('public'));
 
 // passwords
 // username and password imported
-// DEV MODE -
-//var config = require('./config');
-
 // Heroku MODE -
-var config = require('./configForHeroku');
+const config = require('./configForHeroku');
 
-mongodbUser = config.mongodbUser;
-mongodbPassword = config.mongodbPassword;
-dbString = config.dbString;
-cloudinaryName = config.cloudinaryName;
-cloudinaryApiKey = config.cloudinaryApiKey;
-cloudinaryApiSecret = config.cloudinaryApiSecret;
-
-
-// marker import ?
-const mongoose = require("./database");
-
+// DEV MODE -
+//var config = require('./config/config');
+//mongodbUser = config.mongodbUser;
+//mongodbPassword = config.mongodbPassword;
+//dbString = config.dbString;
+//cloudinaryName = config.cloudinaryName;
+//cloudinaryApiKey = config.cloudinaryApiKey;
+//cloudinaryApiSecret = config.cloudinaryApiSecret;
 
 // MULTER
 const multer = require('multer')
@@ -58,28 +56,12 @@ const storage = multer.diskStorage({
     }
 })
 
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
+const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectID;
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-
-
-
-////mongo
-//MongoClient.connect('mongodb://' + mongodbUser +':'+ mongodbPassword + dbString, { useNewUrlParser: true }, function(err, db) {
-//    if (err) throw err;
-//
-//    dbo = db.db("node-maps");
-//
-//    app.listen(3000, () => {
-//        console.log('listening on 3000')
-//    })
-//});
-
-
-
 
 // Express session
 app.use(
@@ -94,7 +76,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Connect flash
 app.use(flash());
 
 // Global variables
@@ -105,31 +86,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-//// Routes
-//app.use('/base', require('./routes/index.js'));
-//app.use('/users', require('./routes/users.js'));
+// Routes
 app.use('/user', user);
-
-const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = require('./config/auth');
-
-
-
-// Dashboard
-app.get('/dashboard', ensureAuthenticated, (req, res) => {
-
-    console.log(req.user)
-
-    PointsModel.find({username: req.user.username}, function(err, points) {
-
-        console.log(points);
-        res.render('dashboard', { title: 'Express', user: req.user, points: points });
-    });
-
-})
-// go to dashboard if user is Authenticated
-
-// page open to all
-app.get('/openpage', (req, res) => res.render('openpage'));
+app.use('/approval', approval);
 
 const port = process.env.PORT || 3000;
 
@@ -137,149 +96,20 @@ app.listen(port, () => {
     console.log('listening on 3000')
 })
 
-
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
 
 app.get('/', function(req,res) {
     res.render('index', {user: req.user});
 });
 
-
-let PointsModel = require('./models/points')
-let UserModel = require('./models/user')
-
-app.get('/profile', function(req, res, next) {
-
-    if (req.user) {
-        console.log(req.user.username)
-    } else {
-        console.log("No signed in user")
-    }
-
-    // get input from url
-    var userInUrl = req.query.user;
-
-    if(userInUrl) {
-        // make lowercase    
-        var userLower = userInUrl.toLowerCase();
-
-        // TODO change name in sign up to username and check it for dups like email
-        // when inserting username make it be all lower case and same when an input
-        UserModel.findOne({username : userLower}, function(err, user) {
-            if(user) {
-                console.log("User Exists")
-                res.render('profile', {user: user});            
-            } else {
-                console.log("No User")
-                res.render('errorPage');
-            }
-        });
-
-    } else {
-        res.render('errorPage');
-    }
-});
-
 app.get('/worldLandmarks', function(req, res, next) {
-
-
     PointsModel.find({approved: "true"}, function(err, points) {
-
         res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
-
     });
 });
 
-// approval page
-app.get('/approval', ensureAuthenticatedAdmin, function(req, res, next) {
-    
-    PointsModel.find({approved: "awaiting"}, function(err, points) {
-        res.render('approval', { title: 'Express', points: points, user: req.user });
-    });
-});
-
-app.post('/approval', (req, res, next) => {
-    
-    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "true" }).then(function() {
-        res.redirect('/worldLandmarks')
-    })
-})
-
-app.post('/reject', (req, res, next) => {
-    
-    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "Rejected" }).then(function() {
-        res.redirect('/worldLandmarks')
-    })
-})
-
-
-app.post('/upload', ensureAuthenticated, (req, res, next) => {
-
-    var markerArray = req.body.markerImageArray.split(",");
-    var tagsArray = req.body.tags.split(",");
-
-    console.log(req.user);    
-
-    // if user is admin
-    if (req.user.username == "admin") {
-        console.log("Admin in the house")
-        //save marker to db
-        let newPoint = new PointsModel({
-            'name': req.body.name,
-            'date': req.body.date,
-            'location.type': 'Point',
-            'location.coordinates': [req.body.lng , req.body.lat],
-            'markerImageArray': markerArray,
-            'tags': tagsArray,
-            'username': req.user.username,
-            'approved': "true"
-        })
-
-        newPoint.save()
-            .then(doc => {
-            console.log(doc)
-            res.redirect('/worldLandmarks')
-
-        }).catch(err => {
-            console.error(err)
-        })
-
-        // if user is not admin but is a user (signed in)
-    } else if (req.user) {        
-
-        let newPoint = new PointsModel({
-            'name': req.body.name,
-            'date': req.body.date,
-            'location.type': 'Point',
-            'location.coordinates': [req.body.lng , req.body.lat],
-            'markerImageArray': markerArray,             
-            'tags': tagsArray,
-            'username': req.user.username,
-            'approved': "awaiting"
-        })
-
-        newPoint.save()
-            .then(doc => {
-            req.flash(
-                'success_msg',
-                'Post Success - Awaiting manual approval - can take up to 12 hours'
-            );
-            console.log(doc)
-            res.redirect('/worldLandmarks')
-
-
-        }).catch(err => {
-            console.error(err)
-        })
-    }
-    // in here means there is no user so we never want this action to happen
-    // stop non logged in users from pressing the add to map button (ADD PHOTO)
-    // when user clicks the add photo button - bring down the sign in/sign up modal if no user else normal flow
-
-
-
-})
 
 
 

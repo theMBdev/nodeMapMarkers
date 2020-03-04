@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 // passwords
 // username and password imported
 var config = require('./config');
@@ -8,13 +10,12 @@ cloudinaryName = config.cloudinaryName;
 cloudinaryApiKey = config.cloudinaryApiKey;
 cloudinaryApiSecret = config.cloudinaryApiSecret;
 
-
-const mongoose = require("mongoose");
 const dbPath = 'mongodb://' + mongodbUser + ':' + mongodbPassword + '@ds147213.mlab.com:47213/node-map-markers';
 mongoose.connect(dbPath, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
 const db = mongoose.connection;
 db.on("error", () => {
     console.log("> error occurred from the database");

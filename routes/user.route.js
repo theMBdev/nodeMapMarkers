@@ -5,6 +5,8 @@ const { ensureAuthenticated, ensureAuthenticatedAdmin, forwardAuthenticated } = 
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+const PointsModel = require('../models/points');
+
 // Passport Config
 require('../config/passport')(passport);
 
@@ -15,6 +17,19 @@ router.use(passport.session());
 
 // Welcome Page
 router.get('/welcome', forwardAuthenticated, (req, res) => res.render('welcome'));
+
+// Dashboard
+router.get('/dashboard', ensureAuthenticated, (req, res) => {
+
+    console.log(req.user)
+
+    PointsModel.find({username: req.user.username}, function(err, points) {
+
+        console.log(points);
+        res.render('dashboard', { title: 'Express', user: req.user, points: points });
+    });
+
+})
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -104,6 +119,71 @@ router.post('/register', (req, res) => {
         });
     };
 });
+
+router.post('/upload', ensureAuthenticated, (req, res, next) => {
+
+    var markerArray = req.body.markerImageArray.split(",");
+    var tagsArray = req.body.tags.split(",");
+
+    console.log(req.user);    
+
+    // if user is admin
+    if (req.user.username == "admin") {
+        console.log("Admin in the house")
+        //save marker to db
+        let newPoint = new PointsModel({
+            'name': req.body.name,
+            'date': req.body.date,
+            'location.type': 'Point',
+            'location.coordinates': [req.body.lng , req.body.lat],
+            'markerImageArray': markerArray,
+            'tags': tagsArray,
+            'username': req.user.username,
+            'approved': "true"
+        })
+
+        newPoint.save()
+            .then(doc => {
+            console.log(doc)
+            res.redirect('/worldLandmarks')
+
+        }).catch(err => {
+            console.error(err)
+        })
+
+        // if user is not admin but is a user (signed in)
+    } else if (req.user) {        
+
+        let newPoint = new PointsModel({
+            'name': req.body.name,
+            'date': req.body.date,
+            'location.type': 'Point',
+            'location.coordinates': [req.body.lng , req.body.lat],
+            'markerImageArray': markerArray,             
+            'tags': tagsArray,
+            'username': req.user.username,
+            'approved': "awaiting"
+        })
+
+        newPoint.save()
+            .then(doc => {
+            req.flash(
+                'success_msg',
+                'Post Success - Awaiting manual approval - can take up to 12 hours'
+            );
+            console.log(doc)
+            res.redirect('/worldLandmarks')
+
+
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    // in here means there is no user so we never want this action to happen
+    // stop non logged in users from pressing the add to map button (ADD PHOTO)
+    // when user clicks the add photo button - bring down the sign in/sign up modal if no user else normal flow
+})
+
 
 // Login 
 router.post('/login', (req, res, next) => {

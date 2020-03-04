@@ -5,7 +5,7 @@ module.exports = {
         }
         req.flash('error_msg', 'Please log in to view that resource');
 
-        res.redirect('/register');
+        res.redirect('/user/register');
 
     },
     ensureAuthenticatedAdmin: function(req, res, next) {
@@ -17,7 +17,7 @@ module.exports = {
         }
         req.flash('error_msg', 'Please log in to view that resource');
 
-        res.redirect('/login');
+        res.redirect('/user/login');
 
     },
     forwardAuthenticated: function(req, res, next) {

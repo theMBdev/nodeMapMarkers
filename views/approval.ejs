@@ -479,7 +479,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/approval",
+                        url: "/approval/approval",
                         data: { 
                             // sent to server
                             id: document.getElementById("markerId").innerHTML   
@@ -504,7 +504,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/reject",
+                        url: "/approval/reject",
                         data: { 
                             // sent to server
                             id: document.getElementById("markerId").innerHTML   

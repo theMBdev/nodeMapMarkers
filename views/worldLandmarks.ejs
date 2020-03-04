@@ -52,23 +52,27 @@
                     <div class="info-panel__tags" id="info-panel__tags">
 
                     </div>
-                </div>
 
-                <div class="info-panel__gallary-container">
-                    <div class="main-container">
+                    <div class="info-panel__gallary-container">
+                        <div class="main-container">
 
-                        <div class="container">                                 
-                            <img id="expandedImg"  src="/images/arrow.png">
+                            <div class="container">                                 
+                                <img id="expandedImg"  src="/images/arrow.png">
+
+                                <div class="gallery-container">
+                                    <div class="image-holder" id="image-holder"></div>
+                                    <button class="slideButton" id="slideLeft" type="button">R</button>
+                                    <button class="slideButton" id="slideRight" type="button">L</button>
+                                </div>
+                            </div>
+
+
+
                         </div>
-
-                        <div class="gallery-container">
-                            <div class="image-holder" id="image-holder"></div>
-                            <button class="slideButton" id="slideLeft" type="button">R</button>
-                            <button class="slideButton" id="slideRight" type="button">L</button>
-                        </div>
-
                     </div>
                 </div>
+
+
 
 
                 <div class="info-panel__chat">
@@ -135,7 +139,7 @@
 
                         <span>Add Details</span>
 
-                        <form id="uploadForm" name="myForm" action="/upload" method="POST" onsubmit="return validateForm()">
+                        <form id="uploadForm" name="myForm" action="/user/upload" method="POST" onsubmit="return validateForm()">
 
                             <input id="latTextBox" input type="hidden" type="text" name="lat" value="">
                             <input id="lngTextBox" input type="hidden" type="text" name="lng" value="">
