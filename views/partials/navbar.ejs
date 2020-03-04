@@ -4,25 +4,14 @@
 
         <a class="nav-bar__title" href="/">In Your Area</a>
 
-        <div class="nav-bar__title  dropdown">
-            <button class="dropbtn">Maps 
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a href="/worldLandmarks">World Landmarks</a>
-            </div>
-        </div>
-
         <a class="nav-bar__title login" href="/user/loginOrRegister">Log In/Sign Up</a>        
         <a href="/user/mySubmissions" class="nav-bar__title user">User Page</a>
         <a href="/approval/approval" class="nav-bar__title admin">Approval</a>
         <a href="/user/logout" class="nav-bar__title user">Logout</a>
-        
     </div>
 </div>
 
-<script>
-    
+<script> 
     // code to display nav links to correct users
     <% if (locals.user) { %>
 

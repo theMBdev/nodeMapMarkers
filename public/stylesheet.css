@@ -143,6 +143,7 @@ body {
 
     .nav-bar__title:hover {
         color: gainsboro;
+        text-decoration: none;        
     }
 
 
@@ -1207,6 +1208,7 @@ body {
 
     .nav-bar__title:hover {
         color: gainsboro;  
+        text-decoration: none;
     }
 
 
@@ -3696,3 +3698,5 @@ body {
     background-color: indianred;
     border-radius: 5px;
 }
+
+

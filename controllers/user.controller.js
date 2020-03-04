@@ -8,11 +8,11 @@ const passport = require('passport');
 const PointsModel = require('../models/points');
 
 // Passport Config
-require('../config/passport')(passport);
-
 // Passport middleware
+require('../config/passport')(passport);
 router.use(passport.initialize());
 router.use(passport.session());
+
 
 exports.login_register = function(req, res) {
     res.render('loginOrRegister');
@@ -20,7 +20,6 @@ exports.login_register = function(req, res) {
 
 exports.my_submissions = function(req, res) {
     console.log(req.user)
-
     PointsModel.find({username: req.user.username}, function(err, points) {
         console.log(points);
         res.render('mySubmissions', { title: 'Express', user: req.user, points: points });
@@ -174,10 +173,7 @@ exports.new_marker = function(req, res) {
         }).catch(err => {
             console.error(err)
         })
-    }
-    // in here means there is no user so we never want this action to happen
-    // stop non logged in users from pressing the add to map button (ADD PHOTO)
-    // when user clicks the add photo button - bring down the sign in/sign up modal if no user else normal flow
+    }    
 };
 
 exports.login = function(req, res, next) {

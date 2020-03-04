@@ -779,29 +779,21 @@
                 }
             });
 
-            // disable submit on the filter box on the map
-            filterForm.onsubmit = function()
-            { 
-                //do what you want;
-                return false;
-            }
-
             // gallery left and right buttons
-            const buttonLeft = document.getElementById('slideLeft');
-            const buttonRight = document.getElementById('slideRight');
-
+            var buttonLeft = document.getElementById('slideLeft');
+            var buttonRight = document.getElementById('slideRight');
+                                
             buttonLeft.onclick = function () {
-                document.getElementsByClassName('image-holder')[0].scrollLeft += 100;
+                document.getElementById('image-holder').scrollLeft += 100;
             };
 
             buttonRight.onclick = function () {
-                document.getElementsByClassName('image-holder')[0].scrollLeft -= 100;
+                document.getElementById('image-holder').scrollLeft -= 100;
             };
 
         </script>        
     </body>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 
 </html>
