@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 // passwords
 // username and password imported
-var config = require('./config');
+//var config = require('./config');
+var config = require('./configForHeroku');
+
 mongodbUser = config.mongodbUser;
 mongodbPassword = config.mongodbPassword;
 dbString = config.dbString;
