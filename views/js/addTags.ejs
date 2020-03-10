@@ -1,0 +1,99 @@
+// add the overlay to delete tag
+var myNodelist = document.getElementsByClassName("aTag");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "closeTag";
+    txt.className = "close-txt";
+    span.appendChild(txt);
+    myNodelist[i].appendChild(span);
+}
+
+
+var data = []
+// Click on a tag to remove it
+var closeTag = document.getElementsByClassName("closeTag");
+var i;
+
+var actualTagCount  = 0;
+
+// Create a new tag when clicking on the "Add" button            
+function newTag() {
+    var li = document.createElement("li");
+    var input = document.getElementById("myInput");
+    var inputValue = document.getElementById("myInput").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);  
+
+    if (inputValue === '') {
+        alert("You must write something!");
+    } else {                     
+        document.getElementById("myUL").appendChild(li);
+        data.push(inputValue);  
+
+        document.getElementById('tagsArrayHidden').value = data;
+
+        var tagCount = document.getElementById("myUL").childElementCount;                     
+        actualTagCount = actualTagCount + 1;                   
+
+        // increase space in form to fit tags
+        if (actualTagCount >= 1) {
+            document.getElementById("myUL").style.height = "70px";
+        }
+        if (actualTagCount >= 5) {
+            document.getElementById("myUL").style.height = "130px";
+        }
+    }
+
+    document.getElementById("myInput").value = "";
+
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "closeTag";
+    span.appendChild(txt);
+    li.appendChild(span);
+
+    // remove tag if clicked on
+    for (i = 0; i < closeTag.length; i++) {
+        closeTag[i].onclick = function() {
+            var div = this.parentElement;
+            // remove x from end of text
+            var str= div.textContent;
+            var searchTerm = str.substring(0, str.length - 1);
+
+            // remove tag from array
+            var index = data.indexOf(searchTerm);                        
+            if (index > -1) {
+                data.splice(index, 1);
+            }
+
+            //update array in textbox sent to database
+            document.getElementById('tagsArrayHidden').value = data 
+
+            div.style.display = "none";
+
+
+            actualTagCount = actualTagCount - 1;
+
+            // decrease space in form to fit tags
+            if (actualTagCount < 5) {
+                document.getElementById("myUL").style.height = "70px";
+            } 
+            if (actualTagCount == 0) {
+                document.getElementById("myUL").style.height = "0px";
+            }
+        }
+    }
+}
+
+// click button on pressing enter to add new tag
+var input = document.getElementById("myInput");
+var inputValue = input.value;
+
+input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {  	
+        event.preventDefault();                       
+        document.getElementById("addTagBtn").click();
+    }
+});

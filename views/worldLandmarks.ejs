@@ -4,10 +4,8 @@
         <!--        head -->
         <% include ./partials/head %>
         <% include ./partials/leaflet %>
-
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
-
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' /> 
         <link  rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css"/>
     </head>
 
@@ -23,15 +21,12 @@
                     <img id="camera-button" src="./icons/photo-camera.png">
                 </button>
                 <div class="map-button-square" onclick="switchPanel()">Add Photo</div>
-
             </div>
 
             <!-- Empty State panel -->
             <div style="display: none;" class="empty-state-panel">
-
                 <p class="empty-state-panel__text">Click on a marker on the map above to display the images here</p>
                 <img class="empty-state-panel__image" src="/images/empty-state.png">
-
             </div>
 
             <!-- Panel button -->
@@ -44,101 +39,41 @@
 
             <!-- Display panel -->
             <div style="display: block;" class="panel1">
-
                 <div class="info-container">
                     <div id="markerTitle" class="info-panel__title">Select a marker to begin</div>                
                     <div id="markerDate" class="info-panel__date"></div>
-
-                    <div class="info-panel__tags" id="info-panel__tags">
-
-                    </div>
-
+                    <div class="info-panel__tags" id="info-panel__tags"></div>
                     <div class="info-panel__gallary-container">
                         <div class="main-container">
-
                             <div class="container">                                 
                                 <img id="expandedImg"  src="/images/arrow.png">
-
                                 <div class="gallery-container">
                                     <div class="image-holder" id="image-holder"></div>
                                     <button class="slideButton" id="slideLeft" type="button">R</button>
                                     <button class="slideButton" id="slideRight" type="button">L</button>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <div class="info-panel__chat">
-
-                </div>
-
+                <div class="info-panel__chat"></div>
             </div>
-
-
-            <script>
-
-                var panel = document.getElementsByClassName("panel1")[0];
-                var iconOut = document.getElementsByClassName("icon-out1")[0];
-                var OpenCloseIcon = document.getElementById("toggle1");
-
-
-                iconOut.onclick = function(){
-                    if (panel.style.height == "80%") {                        
-                        panel.style.height = "20%";
-                        iconOut.style.top = "calc(80% - 25px)";
-
-                        OpenCloseIcon.classList.add("is-up");
-                        OpenCloseIcon.classList.remove("is-down");
-
-
-
-                    } else {                        
-                        panel.style.height = "80%";
-                        iconOut.style.top = "calc(20% - 25px)";
-
-                        OpenCloseIcon.classList.remove("is-up");
-                        OpenCloseIcon.classList.add("is-down");
-
-                    }
-                };
-
-                document.getElementById("toggle1").onclick = function(){
-
-                }
-
-            </script>
-
-
 
             <!-- Upload panel -->
             <div style="display: none;" class="panel1--upload">
-
-                <!--          TODO      HIDDING OVERLAY FOR DEVELOPMENT -- REMOVE DISPLAY NONE WHEN DONE-->
                 <div style="display: none;" id="overlay" class="info-panel--upload__overlay">
                     <div class="info-panel--upload__overlay__text">
-
-
                         <div class="info-panel--upload__overlay__text2">Select location on map
                         </div>
                         <div class="info-panel--upload__overlay__text3">Click on the exact location were the photo was taken 
                         </div>
-
                     </div>           
                 </div>
 
 
                 <div class="info-panel__image--upload__holder">
                     <div class="form-background">
-
                         <span>Add Details</span>
-
                         <form id="uploadForm" name="myForm" action="/user/upload" method="POST" onsubmit="return validateForm()">
 
                             <input id="latTextBox" input type="hidden" type="text" name="lat" value="">
@@ -146,7 +81,6 @@
                             <input id="tagsArrayHidden" input type="hidden" type="text" name="tags" value="">
                             <input id="markerArrayHidden" input type="hidden" type="text" name="markerImageArray" value="">
                             <span id = "status"></span>
-
 
                             <div class="form-input-container">
                                 <input class="form-input" type="text" name="name" placeholder="Post Title" required>
@@ -164,633 +98,31 @@
                                 <span onclick="newTag()" id="addTagBtn" class="form-tag-button">Add</span>
                             </div>
 
-                            <ul id="myUL" class="ulTag">  
-                            </ul>
+                            <ul id="myUL" class="ulTag"></ul>
 
                             <button type="button" id="upload_widget" class="cloud-button">Upload Photos</button>
-
                             <input class="form-submit" type="submit" value="SUBMIT POST">
-
-                        </form> 
-
+                        </form>                         
                     </div>
-
                 </div>
-
             </div>
         </div>
-
 
         <!--        cloudinary for image uploads-->
         <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
 
-        <script type="text/javascript"> 
-            // need to clear this for each new upload or reset
-            // stores the urls or the uploaded images so they can be saved to the db
-            var arrayOfImageUrls = [];
-
-            var myWidget = cloudinary.createUploadWidget({
-                cloudName: 'dqyaxjtvh', 
-                uploadPreset: 'mxgy7sn1'}, (error, result) => { 
-                if (!error && result && result.event === "success") { 
-                    console.log('Done! Here is the image info: ', result.info, result.info.url);
-
-                    arrayOfImageUrls.push(result.info.url);            
-                    document.getElementById("markerArrayHidden").value = arrayOfImageUrls;      
-
-                }
-            })
-
-            document.getElementById("upload_widget").addEventListener("click", function(){
-                myWidget.open();
-            }, false);
-        </script>
-
-
-
         <script>
-
-            var windowHeightSwitchPanelSize = 940;
-
-            var windowHeight = window.innerHeight;
-
-
-            // Image gallery - click on image to view large
-            function displayImage(imgs) {
-                var expandImg = document.getElementById("expandedImg");
-
-                expandImg.src = imgs.src;
-
-            }
-
-            var markerClusterer;
-            var markerArray = [];
-            var mapLocationThing;
-
-
-            // map creation
-            var map = L.map('map').setView([43.511680603027344, -5.767113304138184], 2);
-
-            // set map tile layer
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 24,
-                minZoom: 0,
-                style: "mapbox://styles/mapbox/satellite-streets-v10",
-                id: 'mapbox.satellite',
-                accessToken: 'pk.eyJ1IjoibWFydGluYnJvd24iLCJhIjoiY2szbHQwNWR3MG55MTNsbm04NW8ydXhiMSJ9.N_XvtrtfLeO9t6MEoy0Xqg'
-            }).addTo(map);
-
-
-            // set map bounds
-            var bounds = L.latLngBounds([[-110, -180], [200, 200]]);
-
-            map.setMaxBounds(bounds);
-            map.on('drag', function() {
-                map.panInsideBounds(bounds, { animate: false });
-            });
-
-            var theMarker = {};
-            function addMarkerNew(e) {
-
-                // https://github.com/pointhi/leaflet-color-markers
-                var greenIcon = new L.Icon({
-                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
-
-                map.on('click', function(e) {
-                    lat = e.latlng.lat;
-                    lng = e.latlng.lng;
-
-                    overlayOff();
-
-                    console.log("You clicked the map at LAT: " + lat + " and LONG: " + lng);
-
-                    //Clear existing marker, 
-                    if (theMarker != undefined) {
-                        map.removeLayer(theMarker);
-                    };
-
-                    //Add a marker to show where you clicked.                
-                    theMarker = L.marker([lat, lng], {
-                        draggable: 'true',
-                        icon: greenIcon
-                    }).addTo(map);
-
-                    document.getElementById("latTextBox").value = lat;
-                    document.getElementById("lngTextBox").value = lng;
-
-                    theMarker.on('dragend', function(event) {
-                        var position = theMarker.getLatLng();
-                        console.log(position)
-
-                        theMarker.setLatLng(position, {
-                            draggable: 'true'
-                        }).bindPopup(position).update();
-
-                        document.getElementById("latTextBox").value = position.lat;
-                        document.getElementById("lngTextBox").value = position.lng;
-
-                    });
-                });
-            }
-
-
-            // Create Markers array GeoJson
-            var markerArrayGEOFromDB = [];
-
-            var markerArray = [];
-
-            // Create Markers array GeoJson
-            var loadDBvaluesIntoJsonDoc = function() {
-
-                // get all the values
-                var z = 0;
-                <%   for (z = 0; z < points.length ; z++) { %>
-
-                var lng = <%=points[ z ].location.coordinates[0]%>;
-                var lat = <%=points[ z ].location.coordinates[1]%>;
-                var name = '<%=points[ z ].name%>';
-                var image;
-                var date = '<%=points[ z ].date%>'; 
-
-                var markerImageArray = [];
-                var tags = [];
-
-                var tags = JSON.parse('<%- JSON.stringify(points[z].tags) %>');
-                                     
-
-                var markerImageArray = JSON.parse('<%- JSON.stringify(points[z].markerImageArray) %>');
-                                                  // breaks if this is removed, todo with that above > '); thing
-
-
-                                                  // add to new geoJsonDoc
-                                                  markerArrayGEOFromDB.push({
-                                                  type: 'Feature',
-                                                  geometry: {
-                                                  type: 'Point',
-                                                  coordinates: [lng, lat]
-                                                  },
-                                                  properties: {
-                                                  "name": name,
-                                                  "image": markerImageArray[0],
-                                                  "markerImageArray": markerImageArray,
-                                                  "tags" : tags,
-                                                  "date" : date
-                                                  }
-                                                  });
-
-                <% } %>
-
-            }
-
-            loadDBvaluesIntoJsonDoc();
-
-
-
-            // adding the markers to the map
-            var geoJsonGEO = { type: 'FeatureCollection', features: markerArrayGEOFromDB };
-            //var markers = L.geoJson(geoJsonGEO).addTo(map);
-
-            // make markers cluster together
-            var markersClust = L.markerClusterGroup();
-            markersClust.addLayer(L.geoJson(geoJsonGEO));
-            //            ... Add more layers ...
-            map.addLayer(markersClust);            
-            markersClust.on('click', onMarkerClick);
-
-
-            // marker onclick function
-            function onMarkerClick(e) {   
-                console.log("You clicked a marker")
-                  
-                document.getElementById("markerTitle").innerHTML = e.layer.feature.properties.name;
-                document.getElementById("expandedImg").src = e.layer.feature.properties.image;
-                document.getElementById("markerDate").innerHTML = e.layer.feature.properties.date;
-
-                document.getElementById("expandedImg").style.transform = "rotate(0deg)";
-                document.getElementById("expandedImg").style.width = "100%";
-
-                console.log("DATE", e.layer.feature.properties.date);
-
-
-
-                var imageHolder = document.getElementById("image-holder");
-                imageHolder.innerHTML = "";  
-
-                console.log()
-
-                // create images to browse through below main image
-                for (var i = 0; i < e.layer.feature.properties.markerImageArray.length; i++) {
-
-                    // create a div 
-                    var divElem = document.createElement("div");                                
-                    divElem.setAttribute("class", "image-holder__image");
-
-                    // create image
-                    var imgElem = document.createElement("img");                                
-                    imgElem.setAttribute("class", "images-inside");
-                    imgElem.setAttribute("onclick", "displayImage(this)");
-                    imgElem.src = e.layer.feature.properties.markerImageArray[i];
-
-                    // add imageElem to divElem
-                    divElem.appendChild(imgElem);
-
-                    // add to container
-                    imageHolder.appendChild(divElem);
-
-
-                }
-
-                var tagsList = document.getElementById("info-panel__tags");
-                tagsList.innerHTML = "";
-
-                // add tags to the panel
-                for (var i = 0; i < e.layer.feature.properties.tags.length; i++) {
-
-                    var pElem = document.createElement("p");                                
-                    pElem.setAttribute("class", "info-panel__tag");
-
-                    var node = document.createTextNode(e.layer.feature.properties.tags[i]);
-                    pElem.appendChild(node);
-
-                    tagsList.appendChild(pElem);
-                }
-
-                // desktop and mobile panel changes
-                if (window.innerWidth >= 1024) {
-
-                } else {
-                    OpenCloseIcon.classList.remove("is-up");
-                    OpenCloseIcon.classList.add("is-down");
-
-                    document.getElementsByClassName("icon-out1")[0].style.display = "block";
-                    document.getElementsByClassName("panel1")[0].style.height = "80%";
-                    document.getElementsByClassName("panel1--upload")[0].style.height = "80%";
-                    document.getElementsByClassName("icon-out1")[0].style.top = "calc(20% - 25px)"; 
-
-                }
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // switches between upload panel and display panel desktop
-            var uploadPanel = document.getElementsByClassName("panel1--upload");
-            uploadPanel[0].style.display === "none";
-
-            function switchPanel() {
-
-
-
-                // bellow is for desktop
-                <% if (locals.user) { %>
-
-                // shows overlay 
-                document.getElementById("overlay").style.display = "block";                
-
-                if (uploadPanel[0].style.display === "none") {
-
-                    var panel = document.getElementsByClassName("panel1")[0];
-                    var iconOut = document.getElementsByClassName("icon-out1")[0];
-                    var OpenCloseIcon = document.getElementById("toggle1");
-
-
-                    iconOut.onclick = function(){
-                        if (panel.style.height == "80%") {                        
-                            panel.style.height = "20%";
-                            iconOut.style.top = "calc(80% - 25px)";
-
-                            OpenCloseIcon.classList.add("is-up");
-                            OpenCloseIcon.classList.remove("is-down");
-
-                            uploadPanel[0].style.height = "20%";
-
-                        } else {                        
-                            panel.style.height = "80%";
-                            iconOut.style.top = "calc(20% - 25px)";
-
-                            OpenCloseIcon.classList.remove("is-up");
-                            OpenCloseIcon.classList.add("is-down");
-
-                            uploadPanel[0].style.height = "80%";
-                        }
-                    };
-
-                    document.getElementById("toggle1").onclick = function(){
-
-                    }
-
-
-
-
-
-
-                    // make map clickable to add marker
-                    map.on('click', addMarkerNew);
-                    // fire a click as it was taken two clicks to activate add marker
-                    map.fireEvent('click');
-                    uploadPanel[0].style.display = "block";
-
-
-                    uploadPanel[0].style.bottom = "0px";
-                    uploadPanel[0].style.width = "100%";
-
-
-                    
-
-                } else {
-                    uploadPanel[0].style.display = "none";
-                    
-                    map.off('click')
-                    // remove marker
-                    if (theMarker) { // check
-                        map.removeLayer(theMarker); // remove
-                    }
-
-
-
-
-                }
-
-                var displayPanel = document.getElementsByClassName("panel1");
-
-                if (displayPanel[0].style.display === "none") {
-                    displayPanel[0].style.display = "block";
-                } else {
-                    displayPanel[0].style.display = "none";
-                }
-
-                // Change button text when clicked on
-                var textInButton = document.getElementsByClassName("map-button-square")[0].innerHTML;
-                var AddPhotoButton = document.getElementsByClassName("map-button-square")[0];
-                var buttonIcon = document.getElementById("camera-button");
-
-                if(textInButton == "Add Photo") {
-                    buttonIcon.src = "/icons/close.png"
-                    buttonIcon.style.width = "40px"
-                    AddPhotoButton.innerHTML = "Cancel";
-                    AddPhotoButton.style.paddingLeft = '30px';                    
-                } else {
-                    buttonIcon.src = "/icons/photo-camera.png"
-                    buttonIcon.style.width = "40px"
-                    AddPhotoButton.innerHTML = "Add Photo";
-                    AddPhotoButton.style.paddingLeft = '15px';
-                }
-
-                <% } else {%>
-                window.location.href = "/user/loginOrRegister";
-                console.log("no user")
-                <% } %>
-
-                // trigger to resize upload pannel if in desktop view
-                windowResize();
-
-            }
-
-            // desktop and mobile panel changes
-            function windowResize() {     
-
-                var imageToRotate = document.getElementById("expandedImg");    
-
-                if (window.innerWidth >= 1024) {
-                    console.log("DESKTOP TRIGGER")
-
-                    // icon disply none
-                    document.getElementsByClassName("icon-out1")[0].style.display = "none";
-                    document.getElementsByClassName("panel1")[0].style.height = "90vh";
-                    document.getElementsByClassName("panel1--upload")[0].style.height = "90vh";
-
-                    document.getElementsByClassName("panel1--upload")[0].style.width = "57%";
-                    document.getElementsByClassName("panel1--upload")[0].style.top = "10px";
-
-
-
-                    // rotate arrow  
-                    if(imageToRotate.src == "http://localhost:3000/images/arrow.png") {
-                        imageToRotate.style.transform = "rotate(0deg)";
-                        imageToRotate.style.width = "100%";
-                    } else {
-                        imageToRotate.style.transform = "rotate(0deg)";
-                        imageToRotate.style.width = "100%";
-                    }
-
-                } else {
-                    console.log("MOBILE/TAB TRIGGER")
-
-                    // icon disply block
-                    document.getElementsByClassName("icon-out1")[0].style.display = "block"; 
-
-                    document.getElementsByClassName("panel1")[0].style.height = "20%";
-                    document.getElementsByClassName("panel1--upload")[0].style.height = "20%";
-                    document.getElementsByClassName("icon-out1")[0].style.top = "calc(80% - 25px)";    
-
-                    document.getElementsByClassName("panel1--upload")[0].style.width = "100%";
-                    document.getElementsByClassName("panel1--upload")[0].style.top = "";
-                    document.getElementsByClassName("panel1--upload")[0].style.bottom = "0px";
-
-                    OpenCloseIcon.classList.add("is-up");
-                    OpenCloseIcon.classList.remove("is-down");
-
-                    // rotate arrow  
-                    if(imageToRotate.src == "http://localhost:3000/images/arrow.png") {
-                        imageToRotate.style.transform = "rotate(270deg)";
-                        imageToRotate.style.width = "50%";
-                    } else {
-                        imageToRotate.style.transform = "rotate(0deg)";
-                        imageToRotate.style.width = "100%";
-                    }
-
-
-                }
-            }
-            windowResize();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // adds an overlay to the info-panel-upload and removes it when the user has selected a location
-            function overlayOff() { 
-                // turns the overlay off once the map is clicked on - this insertes the coords into the  hidden textbox
-                //                if (docment.getElementById("latTextBox").length != 0) {
-                document.getElementById("overlay").style.display = "none";
-                //                }
-            }
-
-            // check image uploaded is an image
-            function checkURL(url) {
-                return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
-            }
-
-            //            // check the image form has an image from somewere
-            //            function validateForm() {
-            //                var url = document.forms["myForm"]["pasteurl"].value;
-            //                var imageUpload = document.forms["myForm"]["keyphoto"].value;  
-            //
-            //                if(imageUpload) {                    
-            //                    return true;
-            //                }                 
-            //
-            //                if (!checkURL(url)) {
-            //                    alert("Image must be jpg or png");
-            //                    return false;
-            //                }
-            //            }
-
-            // write an when map is clicked tuen overlay off
-            // map can oly be clicked in a certain mode in the switch above oh eh
-            //            if() { // map is clicked
-            //                    overlayOff();
-            //               }
-
-            // add the overlay to delete tag
-            var myNodelist = document.getElementsByClassName("aTag");
-            var i;
-            for (i = 0; i < myNodelist.length; i++) {
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "closeTag";
-                txt.className = "close-txt";
-                span.appendChild(txt);
-                myNodelist[i].appendChild(span);
-            }
-
-
-            var data = []
-            // Click on a tag to remove it
-            var closeTag = document.getElementsByClassName("closeTag");
-            var i;
-
-            var actualTagCount  = 0;
-
-            // Create a new tag when clicking on the "Add" button            
-            function newTag() {
-                var li = document.createElement("li");
-                var input = document.getElementById("myInput");
-                var inputValue = document.getElementById("myInput").value;
-                var t = document.createTextNode(inputValue);
-                li.appendChild(t);  
-
-                if (inputValue === '') {
-                    alert("You must write something!");
-                } else {                     
-                    document.getElementById("myUL").appendChild(li);
-                    data.push(inputValue);  
-
-                    document.getElementById('tagsArrayHidden').value = data;
-
-                    var tagCount = document.getElementById("myUL").childElementCount;                     
-                    actualTagCount = actualTagCount + 1;                   
-
-                    // increase space in form to fit tags
-                    if (actualTagCount >= 1) {
-                        document.getElementById("myUL").style.height = "70px";
-                    }
-                    if (actualTagCount >= 5) {
-                        document.getElementById("myUL").style.height = "130px";
-                    }
-                }
-
-                document.getElementById("myInput").value = "";
-
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "closeTag";
-                span.appendChild(txt);
-                li.appendChild(span);
-
-                // remove tag if clicked on
-                for (i = 0; i < closeTag.length; i++) {
-                    closeTag[i].onclick = function() {
-                        var div = this.parentElement;
-                        // remove x from end of text
-                        var str= div.textContent;
-                        var searchTerm = str.substring(0, str.length - 1);
-
-                        // remove tag from array
-                        var index = data.indexOf(searchTerm);                        
-                        if (index > -1) {
-                            data.splice(index, 1);
-                        }
-
-                        //update array in textbox sent to database
-                        document.getElementById('tagsArrayHidden').value = data 
-
-                        div.style.display = "none";
-
-
-                        actualTagCount = actualTagCount - 1;
-
-                        // decrease space in form to fit tags
-                        if (actualTagCount < 5) {
-                            document.getElementById("myUL").style.height = "70px";
-                        } 
-                        if (actualTagCount == 0) {
-                            document.getElementById("myUL").style.height = "0px";
-                        }
-                    }
-                }
-            }
-
-            // click button on pressing enter to add new tag
-            var input = document.getElementById("myInput");
-            var inputValue = input.value;
-
-            input.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {  	
-                    event.preventDefault();                       
-                    document.getElementById("addTagBtn").click();
-                }
-            });
-
-            // gallery left and right buttons
-            var buttonLeft = document.getElementById('slideLeft');
-            var buttonRight = document.getElementById('slideRight');
-                                
-            buttonLeft.onclick = function () {
-                document.getElementById('image-holder').scrollLeft += 100;
-            };
-
-            buttonRight.onclick = function () {
-                document.getElementById('image-holder').scrollLeft -= 100;
-            };
-
+            <% include ./js/cloudinary %>
+            <% include ./js/map %>
+            <% include ./js/addNewMarker %> 
+            <% include ./js/loadMarkersToMap %>
+            <% include ./js/openCloseIcon %>
+            <% include ./js/markerOnclick %>
+            <% include ./js/panelSwitch %>
+            <% include ./js/panelResize %>
+            <% include ./js/addOverlay %>
+            <% include ./js/addTags %>
+            <% include ./js/galleryButtons %> 
         </script>        
     </body>
 

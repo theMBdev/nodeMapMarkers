@@ -1,0 +1,28 @@
+var panel = document.getElementsByClassName("panel1")[0];
+var iconOut = document.getElementsByClassName("icon-out1")[0];
+var OpenCloseIcon = document.getElementById("toggle1");
+
+
+iconOut.onclick = function(){
+    if (panel.style.height == "80%") {                        
+        panel.style.height = "20%";
+        iconOut.style.top = "calc(80% - 25px)";
+
+        OpenCloseIcon.classList.add("is-up");
+        OpenCloseIcon.classList.remove("is-down");
+
+
+
+    } else {                        
+        panel.style.height = "80%";
+        iconOut.style.top = "calc(20% - 25px)";
+
+        OpenCloseIcon.classList.remove("is-up");
+        OpenCloseIcon.classList.add("is-down");
+
+    }
+};
+
+document.getElementById("toggle1").onclick = function(){
+
+}

@@ -1,0 +1,51 @@
+// Create Markers array GeoJson
+var markerArrayGEOFromDB = [];
+var loadDBvaluesIntoJsonDoc = function() {
+
+    // get all the values from db
+    <% points.forEach((event)=>{ %>
+
+        var lng = <%=event.location.coordinates[0]%>;
+        var lat = <%=event.location.coordinates[1]%>;
+        var name = '<%=event.name%>';
+                                var image;
+                                var date = '<%=event.date%>';
+                                var markerImageArray = [];
+                                var tags = [];
+                                var tags = JSON.parse('<%- JSON.stringify(event.tags) %>');
+
+                                var markerImageArray = JSON.parse('<%- JSON.stringify(event.markerImageArray) %>');
+                                // breaks if this is removed, todo with that above > '); thing
+
+                                // add to new geoJsonDoc
+                                markerArrayGEOFromDB.push({
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [lng, lat]
+                                    },
+                                    properties: {
+                                        "name": name,
+                                        "image": markerImageArray[0],
+                                        "markerImageArray": markerImageArray,
+                                        "tags" : tags,
+                                        "date" : date
+                                    }
+                                });
+
+                                <% }) %>
+
+                               }
+
+                                loadDBvaluesIntoJsonDoc();
+
+                                // adding the markers to the map
+                                var geoJsonGEO = { type: 'FeatureCollection', features: markerArrayGEOFromDB };
+                                //var markers = L.geoJson(geoJsonGEO).addTo(map);
+
+                                // make markers cluster together
+                                var markersClust = L.markerClusterGroup();
+                                markersClust.addLayer(L.geoJson(geoJsonGEO));
+                                //            ... Add more layers ...
+                                map.addLayer(markersClust);            
+                                markersClust.on('click', onMarkerClick);

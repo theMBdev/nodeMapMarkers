@@ -1,0 +1,62 @@
+// marker onclick function
+function onMarkerClick(e) {   
+    console.log("You clicked a marker")
+
+    document.getElementById("markerTitle").innerHTML = e.layer.feature.properties.name;
+    document.getElementById("expandedImg").src = e.layer.feature.properties.image;
+    document.getElementById("markerDate").innerHTML = e.layer.feature.properties.date;
+    document.getElementById("expandedImg").style.transform = "rotate(0deg)";
+    document.getElementById("expandedImg").style.width = "100%";
+
+    var imageHolder = document.getElementById("image-holder");
+    imageHolder.innerHTML = "";  
+
+    // create images to browse through below main image
+    for (var i = 0; i < e.layer.feature.properties.markerImageArray.length; i++) {
+
+        // create a div 
+        var divElem = document.createElement("div");                                
+        divElem.setAttribute("class", "image-holder__image");
+
+        // create image
+        var imgElem = document.createElement("img");                                
+        imgElem.setAttribute("class", "images-inside");
+        imgElem.setAttribute("onclick", "displayImage(this)");
+        imgElem.src = e.layer.feature.properties.markerImageArray[i];
+
+        // add imageElem to divElem
+        divElem.appendChild(imgElem);
+
+        // add to container
+        imageHolder.appendChild(divElem);
+    }
+
+    var tagsList = document.getElementById("info-panel__tags");
+    tagsList.innerHTML = "";
+
+    // add tags to the panel
+    for (var i = 0; i < e.layer.feature.properties.tags.length; i++) {
+
+        var pElem = document.createElement("p");                                
+        pElem.setAttribute("class", "info-panel__tag");
+
+        var node = document.createTextNode(e.layer.feature.properties.tags[i]);
+        pElem.appendChild(node);
+
+        tagsList.appendChild(pElem);
+    }
+
+    // desktop and mobile panel changes
+    if (window.innerWidth >= 1024) {
+
+    } else {
+        OpenCloseIcon.classList.remove("is-up");
+        OpenCloseIcon.classList.add("is-down");
+
+        document.getElementsByClassName("icon-out1")[0].style.display = "block";
+        document.getElementsByClassName("panel1")[0].style.height = "80%";
+        document.getElementsByClassName("panel1--upload")[0].style.height = "80%";
+        document.getElementsByClassName("icon-out1")[0].style.top = "calc(20% - 25px)"; 
+
+    }
+}

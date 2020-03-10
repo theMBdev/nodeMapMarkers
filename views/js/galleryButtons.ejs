@@ -1,0 +1,11 @@
+// gallery left and right buttons
+var buttonLeft = document.getElementById('slideLeft');
+var buttonRight = document.getElementById('slideRight');
+
+buttonLeft.onclick = function () {
+    document.getElementById('image-holder').scrollLeft += 100;
+};
+
+buttonRight.onclick = function () {
+    document.getElementById('image-holder').scrollLeft -= 100;
+};

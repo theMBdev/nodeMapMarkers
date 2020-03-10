@@ -1,0 +1,48 @@
+var theMarker = {};
+function addMarkerNew(e) {
+    // https://github.com/pointhi/leaflet-color-markers
+    var greenIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    map.on('click', function(e) {
+        lat = e.latlng.lat;
+        lng = e.latlng.lng;
+
+        overlayOff();
+
+        console.log("You clicked the map at LAT: " + lat + " and LONG: " + lng);
+
+        //Clear existing marker, 
+        if (theMarker != undefined) {
+            map.removeLayer(theMarker);
+        };
+
+        //Add a marker to show where you clicked.                
+        theMarker = L.marker([lat, lng], {
+            draggable: 'true',
+            icon: greenIcon
+        }).addTo(map);
+
+        document.getElementById("latTextBox").value = lat;
+        document.getElementById("lngTextBox").value = lng;
+
+        theMarker.on('dragend', function(event) {
+            var position = theMarker.getLatLng();
+            console.log(position)
+
+            theMarker.setLatLng(position, {
+                draggable: 'true'
+            }).bindPopup(position).update();
+
+            document.getElementById("latTextBox").value = position.lat;
+            document.getElementById("lngTextBox").value = position.lng;
+
+        });
+    });
+}

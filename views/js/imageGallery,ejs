@@ -1,0 +1,5 @@
+// Image gallery - click on image to view large
+function displayImage(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    expandImg.src = imgs.src;
+}

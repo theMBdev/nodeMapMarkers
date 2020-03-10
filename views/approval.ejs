@@ -262,9 +262,8 @@
             // Create Markers array GeoJson
             var loadDBvaluesIntoJsonDoc = function() {
 
-                console.log('COUNT ' + '<%= points.length %>');
 
-                            <% points.forEach((event)=>{ %>
+                        <% points.forEach((event)=>{ %>
 
                             var actId = '<%=event.id%>';
                             var lng = <%=event.location.coordinates[0]%>;
@@ -470,6 +469,7 @@
 
         <script>
 
+            // TODO Remove marker "display = none;" when accepted or rejected
             $(function() {
                 $('button.approveButton').click(function() {
 

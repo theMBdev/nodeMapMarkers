@@ -1,0 +1,97 @@
+// switches between upload panel and display panel desktop
+var uploadPanel = document.getElementsByClassName("panel1--upload");
+uploadPanel[0].style.display === "none";
+
+function switchPanel() {
+
+    // below is for desktop
+    <% if (locals.user) { %>
+
+        // shows overlay 
+        document.getElementById("overlay").style.display = "block";                
+
+                         if (uploadPanel[0].style.display === "none") {
+
+                             var panel = document.getElementsByClassName("panel1")[0];
+                             var iconOut = document.getElementsByClassName("icon-out1")[0];
+                             var OpenCloseIcon = document.getElementById("toggle1");
+
+
+                             iconOut.onclick = function(){
+                                 if (panel.style.height == "80%") {                        
+                                     panel.style.height = "20%";
+                                     iconOut.style.top = "calc(80% - 25px)";
+
+                                     OpenCloseIcon.classList.add("is-up");
+                                     OpenCloseIcon.classList.remove("is-down");
+
+                                     uploadPanel[0].style.height = "20%";
+
+                                 } else {                        
+                                     panel.style.height = "80%";
+                                     iconOut.style.top = "calc(20% - 25px)";
+
+                                     OpenCloseIcon.classList.remove("is-up");
+                                     OpenCloseIcon.classList.add("is-down");
+
+                                     uploadPanel[0].style.height = "80%";
+                                 }
+                             };
+
+                             document.getElementById("toggle1").onclick = function(){
+
+                             }
+
+                             // make map clickable to add marker
+                             map.on('click', addMarkerNew);
+                             // fire a click as it was taken two clicks to activate add marker
+                             map.fireEvent('click');
+                             uploadPanel[0].style.display = "block";
+
+
+                             uploadPanel[0].style.bottom = "0px";
+                             uploadPanel[0].style.width = "100%";
+
+                         } else {
+                             uploadPanel[0].style.display = "none";                    
+                             map.off('click')
+
+                             // remove marker
+                             if (theMarker) { // check
+                                 map.removeLayer(theMarker); // remove
+                             }
+                         }
+
+                         var displayPanel = document.getElementsByClassName("panel1");
+
+                         if (displayPanel[0].style.display === "none") {
+                             displayPanel[0].style.display = "block";
+                         } else {
+                             displayPanel[0].style.display = "none";
+                         }
+
+                         // Change button text when clicked on
+                         var textInButton = document.getElementsByClassName("map-button-square")[0].innerHTML;
+                         var AddPhotoButton = document.getElementsByClassName("map-button-square")[0];
+                         var buttonIcon = document.getElementById("camera-button");
+
+                         if(textInButton == "Add Photo") {
+                             buttonIcon.src = "/icons/close.png"
+                             buttonIcon.style.width = "40px"
+                             AddPhotoButton.innerHTML = "Cancel";
+                             AddPhotoButton.style.paddingLeft = '30px';                    
+                         } else {
+                             buttonIcon.src = "/icons/photo-camera.png"
+                             buttonIcon.style.width = "40px"
+                             AddPhotoButton.innerHTML = "Add Photo";
+                             AddPhotoButton.style.paddingLeft = '15px';
+                         }
+
+                         <% } else {%>
+                             window.location.href = "/user/loginOrRegister";
+                                    console.log("no user")
+                                    <% } %>
+
+                                        // trigger to resize upload pannel if in desktop view
+                                        windowResize();
+                                   }
