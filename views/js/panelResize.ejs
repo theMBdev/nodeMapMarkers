@@ -10,12 +10,8 @@ function windowResize() {
         document.getElementsByClassName("icon-out1")[0].style.display = "none";
         document.getElementsByClassName("panel1")[0].style.height = "90vh";
         document.getElementsByClassName("panel1--upload")[0].style.height = "90vh";
-
         document.getElementsByClassName("panel1--upload")[0].style.width = "57%";
         document.getElementsByClassName("panel1--upload")[0].style.top = "10px";
-
-
-
 
         // rotate arrow  
         if(imageToRotate.src == "http://localhost:3000/images/arrow.png") {
@@ -25,21 +21,17 @@ function windowResize() {
             imageToRotate.style.transform = "rotate(0deg)";
             imageToRotate.style.width = "100%";
         }
-
     } else {
         console.log("MOBILE/TAB TRIGGER")
 
         // icon disply block
         document.getElementsByClassName("icon-out1")[0].style.display = "block"; 
-
         document.getElementsByClassName("panel1")[0].style.height = "20%";
         document.getElementsByClassName("panel1--upload")[0].style.height = "20%";
-        document.getElementsByClassName("icon-out1")[0].style.top = "calc(80% - 25px)";    
-
+        document.getElementsByClassName("icon-out1")[0].style.top = "calc(80% - 25px)"; 
         document.getElementsByClassName("panel1--upload")[0].style.width = "100%";
         document.getElementsByClassName("panel1--upload")[0].style.top = "";
         document.getElementsByClassName("panel1--upload")[0].style.bottom = "0px";
-
         OpenCloseIcon.classList.add("is-up");
         OpenCloseIcon.classList.remove("is-down");
 
