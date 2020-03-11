@@ -11,17 +11,18 @@
 
             <h2 class="userPage__title">User Dashboard</h2>
             <p class="userPage__user">Welcome <%= user.username %></p>
-
             <h3 class="userPage__heading">Markers Submited</h3>
 
             <table id="markerTable">
                 <tr>
                     <th>Name</th>
+                    <th>User</th>                    
                     <th>Status</th>
                 </tr>
                 <% points.forEach((event)=>{ %>
                 <tr>
                     <td><%= event.name %></td>
+                    <td><%= event.username %></td>
                     <td><span class="postStatus"><%= event.approved %></span></td>
                 </tr>
                 <% }) %>

@@ -19,11 +19,19 @@ exports.login_register = function(req, res) {
 };
 
 exports.my_submissions = function(req, res) {
-    console.log(req.user)
-    PointsModel.find({username: req.user.username}, function(err, points) {
-        console.log(points);
-        res.render('mySubmissions', { title: 'Express', user: req.user, points: points });
-    });
+//    console.log(req.user)
+
+    if(req.user.username == 'admin') {
+        PointsModel.find(function(err, points) {
+            res.render('mySubmissions', { title: 'Express', user: req.user, points: points });
+        });
+
+    } else {
+        PointsModel.find({username: req.user.username}, function(err, points) {
+            res.render('mySubmissions', { title: 'Express', user: req.user, points: points });
+        });
+
+    }
 };
 
 exports.login_page = function(req, res) {
@@ -120,11 +128,11 @@ exports.new_marker = function(req, res) {
     var markerArray = req.body.markerImageArray.split(",");
     var tagsArray = req.body.tags.split(",");
 
-    console.log(req.user);    
+//    console.log(req.user);    
 
     // if user is admin
     if (req.user.username == "admin") {
-        console.log("Admin in the house")
+//        console.log("Admin in the house")
         //save marker to db
         let newPoint = new PointsModel({
             'name': req.body.name,
@@ -139,7 +147,7 @@ exports.new_marker = function(req, res) {
 
         newPoint.save()
             .then(doc => {
-            console.log(doc)
+//            console.log(doc)
             res.redirect('/worldLandmarks')
 
         }).catch(err => {
@@ -166,7 +174,7 @@ exports.new_marker = function(req, res) {
                 'success_msg',
                 'Post Success - Awaiting manual approval - can take up to 12 hours'
             );
-            console.log(doc)
+//            console.log(doc)
             res.redirect('/worldLandmarks')
 
 
