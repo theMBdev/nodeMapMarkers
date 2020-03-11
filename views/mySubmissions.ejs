@@ -2,28 +2,33 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <% include ./partials/head %>
+        <head>
+            <% include ./partials/head %>
+        </head>
         <% include ./partials/navbar %>
 
-        <h2 class="">User Dashboard</h2>
-        <p class="lead mb-3">Welcome <%= user.username %></p>
+        <main class="userPage">
 
-        <h3>Markers Submited</h3>
+            <h2 class="userPage__title">User Dashboard</h2>
+            <p class="userPage__user">Welcome <%= user.username %></p>
 
-        <table id="markerTable">
-            <tr>
-                <th>Name</th>
-                <th>Status</th>
-            </tr>
-            <% points.forEach((event)=>{ %>
-            <tr>
-                <td><%= event.name %></td>
-                <td><span class="postStatus"><%= event.approved %></span></td>
-            </tr>
-            <% }) %>
-        </table>
+            <h3 class="userPage__heading">Markers Submited</h3>
 
-        <% include ./partials/footer %>
+            <table id="markerTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+                <% points.forEach((event)=>{ %>
+                <tr>
+                    <td><%= event.name %></td>
+                    <td><span class="postStatus"><%= event.approved %></span></td>
+                </tr>
+                <% }) %>
+            </table>
+
+            <% include ./partials/footer %>
+        </main>
     </body>
 
     <script>

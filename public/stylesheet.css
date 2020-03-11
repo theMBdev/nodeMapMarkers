@@ -54,6 +54,25 @@ body {
     color: #31680D;
 }
 
+.userPage {
+    max-width: 1640px; 
+    margin: auto;
+    padding: 10px;
+}
+
+.userPage__title {
+  margin-top: 10px;
+}
+
+.userPage__user {
+    margin-bottom: 15px;
+    color: gray;
+}
+
+.userPage__heading {
+    margin-bottom: 5px;
+}
+
 
 /* Mobile*/
 @media only screen and (min-width: 180px) {

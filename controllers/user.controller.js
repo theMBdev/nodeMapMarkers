@@ -157,7 +157,7 @@ exports.new_marker = function(req, res) {
             'markerImageArray': markerArray,             
             'tags': tagsArray,
             'username': req.user.username,
-            'approved': "awaiting"
+            'approved': "Awaiting"
         })
 
         newPoint.save()
