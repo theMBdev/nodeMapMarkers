@@ -32,8 +32,11 @@
         var arrayAP = [...approvedPosts];
 
         for (var i = 0; i < arrayAP.length; i++) {
-            if(arrayAP[i].innerHTML == "true") {
+            if(arrayAP[i].innerHTML == "true" || arrayAP[i].innerHTML == "Approved") {
                 document.getElementsByClassName("postStatus")[i].innerHTML = "Approved";
+                document.getElementsByClassName("postStatus")[i].classList.add("postStatus--approved");
+            } else if (arrayAP[i].innerHTML == "Rejected") {
+                document.getElementsByClassName("postStatus")[i].classList.add("postStatus--rejected");
             }
         }
     </script>

@@ -1,13 +1,13 @@
 const PointsModel = require('../models/points');
 
 exports.load_markers = function(req, res) {    
-    PointsModel.find({approved: "awaiting"}, function(err, points) {
+    PointsModel.find({approved: "Awaiting"}, function(err, points) {
         res.render('approval', { title: 'Express', points: points, user: req.user });
     });
 };
 
 exports.approve_marker = function(req, res) {    
-    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "true" }).then(function() {
+    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "Approved" }).then(function() {
         res.send('Marker Approved');
     });;
 };

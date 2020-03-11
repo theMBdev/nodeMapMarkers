@@ -39,6 +39,21 @@ body {
     -ms-overflow-style: none;
 }
 
+.postStatus {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.postStatus--rejected {
+    background-color: #FFD5D4;
+    color: #68200D;
+}
+
+.postStatus--approved {
+    background-color: #DEFFDC ;
+    color: #31680D;
+}
+
 
 /* Mobile*/
 @media only screen and (min-width: 180px) {
