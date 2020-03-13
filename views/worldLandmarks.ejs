@@ -4,8 +4,6 @@
         <!--        head -->
         <% include ./partials/head %>
         <% include ./partials/leaflet %>
-
-        <link  rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css"/>
     </head>
 
     <body class="body" onresize="windowResize()">
@@ -39,7 +37,7 @@
             <!-- Display panel -->
             <div style="display: block;" class="panel1">
                 <div class="info-container">
-                    <div id="markerTitle" class="info-panel__title">Select a marker to begin</div>                
+                    <div id="markerTitle" class="info-panel__title">Select a marker to begin</div>       
                     <div id="markerDate" class="info-panel__date"></div>
                     <div class="info-panel__tags" id="info-panel__tags"></div>
                     <div class="info-panel__gallary-container">
@@ -87,7 +85,7 @@
                             </div>
 
                             <div class="form-input-container form-input-container--half">
-                                <input class="form-input form-input--date" type="text" name="date" placeholder="Date">
+                                <input class="form-input form-input--date" type="date" name="date" placeholder="Date">
                                 <img class="form-icon" src="/icons/calendar_today-24px.svg">
                             </div>
 
@@ -104,12 +102,11 @@
                         </form>                         
                     </div>
                 </div>
-            </div>
+            </div>   
         </div>
 
         <!--        cloudinary for image uploads-->
-        <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
-
+        <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
         <script>
             <% include ./js/cloudinary %>
             <% include ./js/imageGallery %>

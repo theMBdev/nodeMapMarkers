@@ -1011,7 +1011,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 100px;
-        background-color: dodgerblue;
+        background-color: lightcoral;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }
@@ -2032,7 +2032,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 120px;
-        background-color: dodgerblue;
+        background-color: lightcoral;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }
@@ -2978,7 +2978,7 @@ body {
     .image-holder {
         height: 120px;
         width: 100%;
-        background-color: #ffc4bf;
+        background-color: #ffffff;
         overflow-x: scroll;
         white-space: nowrap;
         padding-left: 20px;
@@ -2988,7 +2988,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 120px;
-        background-color: dodgerblue;
+        background-color: lightcoral;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }

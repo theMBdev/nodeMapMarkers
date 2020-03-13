@@ -148,11 +148,11 @@
 
             map.addLayer(markersClust);            
             markersClust.on('click', onMarkerClick);
-
+            
             // marker onclick function
             function onMarkerClick(e) {   
                 console.log("You clicked a marker")
-                console.log("Inside Markers", e.layer.feature.properties);    
+                console.log("Inside Markers", e.layer.feature.properties);
 
                 // change info
                 document.getElementById("markerId").innerHTML = e.layer.feature.properties.actId;
@@ -287,6 +287,8 @@
             $(function() {
                 $('button.approveButton').click(function() {
 
+                    console.log("clickedOnMarker inside"); 
+                    
                     console.log("this.dataset.id", this.dataset.id);
                     console.log("this.dataset", this.dataset);
                     console.log("$(this).data('id')", $(this).data('id'));                    
@@ -300,6 +302,10 @@
                         },
                         success: function(result) {
                             alert('Approved');
+                            
+//                            this.parentNode.style.display = 'none';
+                            
+                            
                         },
                         error: function(result) {
                             console.log("error");
