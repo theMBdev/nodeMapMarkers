@@ -604,7 +604,7 @@ body {
     }
 
     .info-panel__title {
-        font-size: 36px;
+        font-size: 26px;
         margin-bottom: 5px;
     }
 
@@ -612,12 +612,13 @@ body {
 
 
     .info-panel__date {
-        font-size: 24px;
+        font-size: 20px;
+        color: gray;
         margin-bottom: 10px;
     }
 
     .info-panel__tags {
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 10px;
     }
 
@@ -1667,7 +1668,7 @@ body {
     }
 
     .info-panel__title {
-        font-size: 36px;
+
         margin-bottom: 5px;
     }
 
@@ -1675,12 +1676,11 @@ body {
 
 
     .info-panel__date {
-        font-size: 24px;
         margin-bottom: 10px;
     }
 
     .info-panel__tags {
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 10px;
     }
 
@@ -2304,7 +2304,7 @@ body {
 
 
     .panel1 {
-        padding-top: 30px;
+padding-top: 10px;
         background-color: white;
         height: 90vh;
         width: 57%;        
@@ -2578,17 +2578,16 @@ body {
     }
 
     .info-panel__title {        
-        font-size: 36px;
+
         margin-bottom: 5px;
     }
 
     .info-panel__date {
-        font-size: 24px;
         margin-bottom: 10px;
     }
 
     .info-panel__tags {
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 10px;
     }
 
