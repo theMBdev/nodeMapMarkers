@@ -58,6 +58,8 @@ body {
     max-width: 1640px; 
     margin: auto;
     padding: 10px;
+    position: relative;
+    top: 50px;
 }
 
 .userPage__title {
@@ -185,6 +187,10 @@ body {
     .nav-bar {
         overflow: hidden;
         background-color: #333;
+        position: fixed;
+        top: 0;
+        z-index: 20;
+        width: 100%;
     }
 
     .nav-bar__container {        
@@ -275,6 +281,7 @@ body {
         background-color: #131518;
         position: relative;
         overflow: hidden;
+        top: 60px;
     }
 
     /*    banner Tablet */
@@ -619,7 +626,7 @@ body {
         height: 40px;
         min-width: 70px;
         width: auto;
-        background-color: #ffc4bf;
+        background-color: #cfeafe;
         padding: 10px;
         text-align: center;
         line-height: 20px;
@@ -1011,7 +1018,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 100px;
-        background-color: lightcoral;
+        background-color: #e7f4fe;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }
@@ -1128,8 +1135,10 @@ body {
     .home-page-container {
         background-color: white;
         max-width: 1640px;
-        height: 1000px;
+        height: calc(100vh + 50px);
         margin: auto;
+            position: relative;
+            top: 50px;
     }
 
     .landing-page-fold {
@@ -1338,7 +1347,6 @@ body {
         height: calc(100vh - 47px);
         width: 100%;      
         margin: auto;
-
         position: relative;
         /*        overflow:scroll;*/
     }
@@ -1681,7 +1689,7 @@ body {
         height: 40px;
         min-width: 70px;
         width: auto;
-        background-color: #ffc4bf;
+        background-color: #cfeafe;
         padding: 10px;
         text-align: center;
         line-height: 20px;
@@ -2032,7 +2040,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 120px;
-        background-color: lightcoral;
+        background-color: #e7f4fe;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }
@@ -2156,8 +2164,7 @@ body {
 
     .home-page-container {
         background-color: white;
-        max-width: 1640px;
-        height: 1000px;
+        max-width: 1640px;   
         margin: auto;
     }
 
@@ -2298,7 +2305,7 @@ body {
 
     .panel1 {
         padding-top: 30px;
-        background-color: snow;
+        background-color: white;
         height: 90vh;
         width: 57%;        
         position: absolute;
@@ -2423,7 +2430,6 @@ body {
         max-width: 1640px;      
         width: 100%;      
         margin: auto;
-
         padding: 10px;
         /*        overflow: scroll;*/
     }
@@ -2591,7 +2597,7 @@ body {
         height: 40px;
         min-width: 70px;
         width: auto;
-        background-color: #ffc4bf;
+        background-color: #cfeafe;
         padding: 10px;
         text-align: center;
         line-height: 20px;
@@ -2988,7 +2994,7 @@ body {
     .image-holder__image {
         height: 80px;
         width: 120px;
-        background-color: lightcoral;
+        background-color: #e7f4fe;
         margin: 5px 5px 5px 0px;
         display: inline-block;   
     }
@@ -3000,7 +3006,7 @@ body {
         margin: 5px;
         margin-top: 30px;
         display: block;
-        background-color: white;
+        background-color: #89cafd;
     }
 
     #slideLeft {
@@ -3130,7 +3136,7 @@ body {
     .home-page-container {
         background-color: white;
         max-width: 1640px;
-        height: 1000px;
+     
         margin: auto;
     }
 
@@ -3258,7 +3264,7 @@ body {
 }
 .panel1--upload {
     padding-top: 30px;
-    background-color: snow;
+    background-color: white;
     height: 90vh;
     width: 57%;        
     position: absolute;
@@ -3322,6 +3328,11 @@ body {
 
 .form-input--date {
     width: 100%;
+}
+
+input[type="date"] {
+    color: #5D6165;
+    font-size: 16px;
 }
 
 .cloud-button {
