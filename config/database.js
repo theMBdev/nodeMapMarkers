@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 // 0 for dev mode
-var mode = 0;
+var mode = 1;
 
-if (mode == 1) {
+if (mode == 0) {
     // DEV
     var config = require('./config');
 } else {
