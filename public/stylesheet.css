@@ -6,9 +6,12 @@
 }
 
 body {
-	/*    background-color: black;*/
 	overflow: none;    
 	background-color: #131518;
+}
+
+.user-page {
+	background-color: white;
 }
 
 button:focus {outline:0;}
@@ -1056,7 +1059,7 @@ button:focus {outline:0;}
 		position: relative;
 		padding: 12px 8px 12px 8px;
 		list-style-type: none;
-		background-color: #eb686440;
+		background-color: #cfeafe;
 		font-size: 18px;
 		transition: 0.2s;
 		min-width: 100px;
@@ -2090,7 +2093,6 @@ button:focus {outline:0;}
 		position: relative;
 		padding: 12px 8px 12px 8px;
 		list-style-type: none;
-		background-color: #eb686440;
 		font-size: 18px;
 		transition: 0.2s;
 		min-width: 100px;
@@ -3041,7 +3043,6 @@ button:focus {outline:0;}
 		position: relative;
 		padding: 10px 6px 10px 6px;
 		list-style-type: none;
-		background-color: #eb686440;
 		font-size: 18px;
 		transition: 0.2s;
 		min-width: 100px;

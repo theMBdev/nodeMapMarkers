@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 const PointsModel = require('../models/points');
+const UserModel = require('../models/user');
 
 // Passport Config
 // Passport middleware
