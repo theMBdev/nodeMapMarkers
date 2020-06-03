@@ -7,7 +7,7 @@ exports.load_markers = function(req, res) {
 };
 
 exports.approve_marker = function(req, res) {    
-    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "Approved" }).then(function() {
+    PointsModel.findOneAndUpdate({ _id: req.body.id }, { approved: "true" }).then(function() {
         res.send('Marker Approved');
     });;
 };
