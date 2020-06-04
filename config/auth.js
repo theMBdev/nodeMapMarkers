@@ -26,6 +26,6 @@ module.exports = {
             return next();
         }
         // if authenticated take user to dashboard
-        res.redirect('/');      
+        res.redirect('/worldLandmarks');      
     }
 };

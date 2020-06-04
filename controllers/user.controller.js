@@ -20,7 +20,6 @@ exports.login_register = function(req, res) {
 };
 
 exports.my_submissions = function(req, res) {
-//    console.log(req.user)
 
     if(req.user.username == 'admin') {
         PointsModel.find(function(err, points) {
@@ -187,7 +186,7 @@ exports.new_marker = function(req, res) {
 
 exports.login = function(req, res, next) {
     passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/worldLandmarks',
         failureRedirect: '/user/register',
         failureFlash: true
     })(req, res, next);
@@ -196,5 +195,5 @@ exports.login = function(req, res, next) {
 exports.logout = function(req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/');
+    res.redirect('/worldLandmarks');
 };
