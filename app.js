@@ -27,13 +27,13 @@ app.use(express.static(publicPath));
 // MULTER
 const multer = require('multer')
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function(req, file, cb) {
-        console.log(file)
-        cb(null, file.originalname)
-    }
+	destination: function(req, file, cb) {
+		cb(null, 'uploads/')
+	},
+	filename: function(req, file, cb) {
+		console.log(file)
+		cb(null, file.originalname)
+	}
 })
 
 const MongoClient = require('mongodb').MongoClient;
@@ -45,11 +45,11 @@ app.use(bodyParser.json())
 
 // Express session
 app.use(
-    session({
-        secret: 'secret',
-        resave: true,
-        saveUninitialized: true
-    })
+	session({
+		secret: 'secret',
+		resave: true,
+		saveUninitialized: true
+	})
 );
 
 // Passport middleware
@@ -61,10 +61,10 @@ app.use(passport.session());
 app.use(flash());
 // Global variables
 app.use(function(req, res, next) {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-    next();
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	res.locals.error = req.flash('error');
+	next();
 });
 
 // Routes
@@ -74,7 +74,7 @@ app.use('/approval', approval);
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log('listening on 3000')
+	console.log('listening on 3000')
 })
 
 // set the view engine to ejs
@@ -83,11 +83,13 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req,res) {
-    res.render('index', {user: req.user});
+	PointsModel.find({approved: "true"}, function(err, points) {
+		res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
+	});
 });
 
 app.get('/worldLandmarks', function(req, res, next) {
-    PointsModel.find({approved: "true"}, function(err, points) {
-        res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
-    });
+	PointsModel.find({approved: "true"}, function(err, points) {
+		res.render('worldLandmarks', { title: 'Express', points: points, user: req.user });
+	});
 });
