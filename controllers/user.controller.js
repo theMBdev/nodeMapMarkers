@@ -187,7 +187,7 @@ exports.new_marker = function(req, res) {
 exports.login = function(req, res, next) {
     passport.authenticate('local', {
         successRedirect: '/worldLandmarks',
-        failureRedirect: '/user/register',
+        failureRedirect: '/user/login',
         failureFlash: true
     })(req, res, next);
 };
